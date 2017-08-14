@@ -69,7 +69,7 @@ for value_div in market_summary_divs:
 
 
 market_summary_values = dict(zip(market_summary_field_names, market_summary_values))
-print market_summary_values
+
 
 
 ## Write The Index Values
