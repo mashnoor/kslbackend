@@ -52,5 +52,5 @@ for tr in tables[2].find_all('tr'):
     top_twenty_by_trade.append(curr_item)
 
 del(top_twenty_by_trade[0])
-with open('marketmovers/top_twenty_by_trade.txt', 'wb') as f:
+with open('marketmovers/top_twenty_by_trade.txt', 'w') as f:
     f.write(json.dumps(top_twenty_by_trade))

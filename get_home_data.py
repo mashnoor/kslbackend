@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import json
 
 url = "http://www.cse.com.bd/"
 
@@ -53,4 +54,31 @@ csi_values['csivalue'] = inner_divs[1].get_text().strip()
 csi_values['csichange'] = inner_divs[2].get_text().strip()
 all_idexes.append(csi_values)
 
-print all_idexes
+
+
+
+########### GET Market Summary ##############
+market_summary_div_attrs = {"class":"ColNumUpdate"}
+market_summary_divs = soup.find_all("div", market_summary_div_attrs)
+skipped_the_first_row = False
+market_summary_field_names = ["value_in_taka", "volume", "contract_number", "issues_traded", "issues_advanced", "issues_declined", "issues_unchanged", "issued_capital", "closing_market_capitalization"]
+market_summary_values = []
+
+for value_div in market_summary_divs:
+    market_summary_values.append(value_div.get_text().strip())
+
+
+market_summary_values = dict(zip(market_summary_field_names, market_summary_values))
+print market_summary_values
+
+
+## Write The Index Values
+with open("homedatas/all_indexes.txt", "w") as f:
+    f.write(json.dumps(all_idexes))
+
+## Write The Market Summary Values
+with open('homedatas/market_summary.txt', "w") as f:
+    f.write(json.dumps(market_summary_values))
+
+
+

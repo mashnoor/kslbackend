@@ -22,5 +22,5 @@ for tr in table.find_all("tr"):
 
 del(all_items[0])
 
-with open('all_items_latest_update.txt', 'wb') as f:
+with open('all_items_latest_update.txt', 'w') as f:
     f.write(json.dumps(all_items))

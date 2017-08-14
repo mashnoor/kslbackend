@@ -1,0 +1,1 @@
+{"issues_traded": "242", "issues_advanced": "68", "issues_unchanged": "23", "volume": "56,918,510", "issues_declined": "151", "issued_capital": "611,665,707,230.00", "closing_market_capitalization": "3,306,306,988,836.60", "contract_number": "14,651", "value_in_taka": "1,368,521,718.10"}

@@ -25,6 +25,6 @@ for tr in table.find_all("tr"):
        pass
 
 json_converted = json.dumps(all_company)
-with open('all_company_info.txt', 'wb') as f:
+with open('all_company_info.txt', 'w') as f:
     f.write(json_converted)
 
