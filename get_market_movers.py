@@ -22,7 +22,7 @@ for tr in tables[0].find_all('tr'):
     top_twenty_by_volume.append(curr_item)
 
 del(top_twenty_by_volume[0])
-with open('marketmovers/top_twenty_by_volume.txt', 'wb') as f:
+with open('marketmovers/top_twenty_by_volume.txt', 'w') as f:
     f.write(json.dumps(top_twenty_by_volume))
 
 
@@ -37,7 +37,7 @@ for tr in tables[1].find_all('tr'):
     top_twenty_by_value.append(curr_item)
 
 del(top_twenty_by_value[0])
-with open('marketmovers/top_twenty_by_value.txt', 'wb') as f:
+with open('marketmovers/top_twenty_by_value.txt', 'w') as f:
     f.write(json.dumps(top_twenty_by_value))
 
 
