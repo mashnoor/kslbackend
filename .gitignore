@@ -3,3 +3,5 @@ idea/workspace.xml
 .DS_Store
 homedatas
 marketmovers
+item_details
+get_item_details.js
