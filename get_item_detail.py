@@ -22,7 +22,7 @@ responses = grequests.map(req)
 
 
 for idx, response in enumerate(responses):
-    print item_company_names[idx]
+    
 
 
     soup = BeautifulSoup(response.content, 'lxml')
