@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+
+{% block content %}
+<h1>Accounts</h1>
+
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped">
+                            <tr>
+                                <th>ID</th>
+                                <th>User Name</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Approval Status</th>
+                                <th>Action</th>
+
+                            </tr>
+
+                            {% for user in users %}
+                           <tr>
+                               <td>{{ loop.index }}</td>
+                               <td>{{ user.username }}</td>
+                               <td>{{ user.email }}</td>
+                               <td>{{ user.mobile }}</td>
+                               {% if user.isApproved == 1 %}
+                                <td>Approved</td>
+                               {% else %}
+                                <td>Waiting For Approval</td>
+                               {% endif %}
+                             <td>
+                                 <a href="" class="btn btn-success" role="button">Approve</a>
+                                 <a href="" class="btn btn-danger" role="button">Delete</a>
+                             </td>
+                           </tr>
+
+                        {% endfor %}
+                    </table>
+                  
+                </div>
+
+              
+{% endblock %}
