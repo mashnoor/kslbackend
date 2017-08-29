@@ -24,6 +24,7 @@ def dashboard():
 
 @app.route("/requestaccount", methods=["POST"])
 def requestaccount():
+    print(request.get_json())
     acc = dbhelper.Account()
     acc.email = request.form.get("email")
     acc.mobile = request.form.get("mobile")
