@@ -1,15 +1,14 @@
-import os
-import sys
-from sqlalchemy import Column, ForeignKey, Integer, String
+
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
-class User(Base):
-    __tablename__ = 'user'
+class Account(Base):
+    __tablename__ = 'accounts'
 
     id = Column(Integer, primary_key=True)
     username = Column(String)
@@ -24,13 +23,13 @@ Base.metadata.create_all(engine)
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 
-def getUsers():
+def getAccounts():
     session = DBSession()
-    return session.query(User).all()
+    return session.query(Account).all()
 
 
-def saveUser(user):
+def saveAccount(account):
     session = DBSession()
-    session.add(user)
+    session.add(account)
     session.commit()
 
