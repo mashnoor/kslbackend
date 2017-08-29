@@ -29,6 +29,7 @@ def requestaccount():
     acc.mobile = request.form.get("mobile")
     acc.password = request.form.get("password")
     acc.username = request.form.get("username")
+    acc.isApproved = 0
     dbhelper.saveAccount(acc)
     return "Request for account creation in successful"
 

@@ -19,10 +19,10 @@
         {% for account in accounts %}
         <tr>
             <td>{{ loop.index }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.mobile }}</td>
-            {% if user.isApproved == 1 %}
+            <td>{{ account.username }}</td>
+            <td>{{ account.email }}</td>
+            <td>{{ account.mobile }}</td>
+            {% if account.isApproved == 1 %}
             <td>Approved</td>
             {% else %}
             <td>Waiting For Approval</td>
