@@ -24,12 +24,12 @@ def dashboard():
 
 @app.route("/requestaccount", methods=["POST"])
 def requestaccount():
-    print(request.get_json())
+    req_json = request.get_json()
     acc = dbhelper.Account()
-    acc.email = request.form.get("email")
-    acc.mobile = request.form.get("mobile")
-    acc.password = request.form.get("password")
-    acc.username = request.form.get("username")
+    acc.email = req_json['email']
+    acc.mobile = req_json['mobile']
+    acc.password = req_json['username']
+    acc.username = req_json['password']
     acc.isApproved = 0
     dbhelper.saveAccount(acc)
     return "Request for account creation in successful"
