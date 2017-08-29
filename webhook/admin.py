@@ -35,7 +35,7 @@ def requestaccount():
 
 @app.route("/accounts")
 def users():
-    print dbhelper.getAccounts()
+    #print dbhelper.getAccounts()
     return flask.render_template("accounts.html", accounts=dbhelper.getAccounts())
 
 
