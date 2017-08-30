@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request
 import dbhelper
 
-account_request_api = Blueprint('requisitions_api', __name__)
+account_request_api = Blueprint('account_request_api', __name__)
 
 
 
