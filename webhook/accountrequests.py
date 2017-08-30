@@ -1,26 +1,52 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
 import dbhelper
 
 account_request_api = Blueprint('account_request_api', __name__)
 
 
-
-
-
 @account_request_api.route("/accountrequests")
 def accountrequests():
-    #print dbhelper.getAccounts()
-    return render_template("accountrequests.html", accounts=dbhelper.getAccounts())
+    # print dbhelper.getAccounts()
+    return render_template("accountrequests.html", accountrequests=dbhelper.getAccountRequests())
 
 
 @account_request_api.route("/requestaccount", methods=["POST"])
 def requestaccount():
     req_json = request.get_json()
-    acc = dbhelper.Account()
+    acc = dbhelper.AccountRequest()
     acc.email = req_json['email']
     acc.mobile = req_json['mobile']
     acc.password = req_json['username']
     acc.username = req_json['password']
     acc.isApproved = 0
-    dbhelper.saveAccount(acc)
+    dbhelper.save(acc)
     return "Request for account creation in successful"
+
+
+@account_request_api.route("/accounts")
+def accounts():
+    return render_template("accounts.html", accounts=dbhelper.getAccounts())
+
+
+
+@account_request_api.route("/addaccount", methods=["POST"])
+def addaccount():
+    acc = dbhelper.Account()
+    acc.name = request.form.get("accountname")
+    acc.detail = request.form.get("accountdetail")
+    acc.masterId = request.form.get("masterid")
+    acc.masterPassword = request.form.get("masterpassword")
+    dbhelper.save(acc)
+    return accounts()
+
+@account_request_api.route("/<masterid>/itsaccounts/")
+def itsaccounts(masterid):
+    return render_template("itsaccounts.html", masterid=masterid, itsaccounts=dbhelper.getItsAccounts(masterid))
+
+@account_request_api.route("/<masterid>/additsaccount", methods=["POST"])
+def additsaccount(masterid):
+    itsacc = dbhelper.ITSAccount()
+    itsacc.itsNo = request.form.get("itsaccountno")
+    itsacc.password = request.form.get("itspassword")
+    dbhelper.addItsAccoount(masterid, itsacc)
+    return itsaccounts(masterid)

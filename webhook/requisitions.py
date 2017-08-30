@@ -16,6 +16,6 @@ def requestrequisition():
     new_requisition.amount = req_json["amount"]
     new_requisition.reqdate = req_json["reqdate"]
     new_requisition.isApproved = 0
-    dbhelper.saveRequisitionRequest(new_requisition)
+    dbhelper.save(new_requisition)
     return "Successfully Saved"
 

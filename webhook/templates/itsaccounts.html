@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+
+{% block content %}
+    <form action="/{{ masterid }}/additsaccount" method="post">
+        <div class="form-group">
+            <label for="masterid">ITS Account No</label>
+            <input class="form-control" name="itsaccountno" id="masterid">
+        </div>
+        <div class="form-group">
+            <label for="masterid">ITS Acc Password</label>
+            <input type="password" name="itspassword" class="form-control" id="masterpassword">
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Add ITS Account">
+        </div>
+
+    </form>
+    <h1>ITS Accounts for {{ masterid }}</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>ID</th>
+                <th>ITS Account</th>
+                <th>Action</th>
+
+
+            </tr>
+            {% for itsaccount in itsaccounts %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ itsaccount.itsNo }}</td>
+
+                </tr>
+
+            {% endfor %}
+
+
+        </table>
+
+    </div>
+
+
+{% endblock %}

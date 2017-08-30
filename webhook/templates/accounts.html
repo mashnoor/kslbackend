@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+
+{% block content %}
+    <form action="{{ url_for('account_request_api.addaccount') }}" method="post">
+        <div class="form-group">
+            <label for="masterid">Master ID</label>
+            <input class="form-control" name="masterid" id="masterid">
+        </div>
+        <div class="form-group">
+            <label for="masterid">Master Password</label>
+            <input type="password" name="masterpassword" class="form-control" id="masterpassword">
+        </div>
+        <div class="form-group">
+            <label for="accountname">Account Name</label>
+            <input class="form-control" id="accountname" name="accountname">
+        </div>
+        <div class="form-group">
+            <label for="accountdetail">Account Detail</label>
+            <input class="form-control" id="accountdetail" name="accountdetail">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Add Account">
+        </div>
+
+    </form>
+    <h1>Accounts</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Master ID</th>
+                <th>Name</th>
+                <th>Detail</th>
+
+
+            </tr>
+            {% for account in accounts %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td><a href="/{{ account.masterId }}/itsaccounts">{{ account.masterId }}</a> </td>
+                    <td>{{ account.name }}</td>
+                    <td>{{ account.detail }}</td>
+                </tr>
+
+            {% endfor %}
+
+
+        </table>
+
+    </div>
+
+
+{% endblock %}
