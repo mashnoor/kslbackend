@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 import flask
 
@@ -6,12 +6,14 @@ from loginapi import login_api
 import dbhelper
 
 import flask_login
+from requisitions import requisitions_api
 
 login_manager = flask_login.LoginManager()
 
 # Flask app should start in global layout
 app = Flask(__name__)
 app.register_blueprint(login_api)
+app.register_blueprint(requisitions_api)
 
 
 
@@ -38,7 +40,8 @@ def requestaccount():
 @app.route("/accounts")
 def users():
     #print dbhelper.getAccounts()
-    return flask.render_template("accounts.html", accounts=dbhelper.getAccounts())
+    return render_template("accounts.html", accounts=dbhelper.getAccounts())
+
 
 
 if __name__ == '__main__':

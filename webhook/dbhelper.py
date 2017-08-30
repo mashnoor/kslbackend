@@ -1,4 +1,3 @@
-
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -6,6 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
+
 
 class Account(Base):
     __tablename__ = 'accounts'
@@ -18,10 +18,29 @@ class Account(Base):
     email = Column(String)
     isApproved = Column(Integer)
 
+
+class FundRequisition(Base):
+
+    __tablename__ = 'requisitions'
+    id = Column(Integer, primary_key=True)
+    itsaccno = Column(String)
+    amount = Column(String)
+    reqdate = Column(String)
+    isApproved = Column(Integer)
+
 engine = create_engine('sqlite:///kslbackend.db')
 Base.metadata.create_all(engine)
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
+
+def getRequisitions():
+    session = DBSession()
+    return session.query(FundRequisition).all()
+
+def saveRequisitionRequest(requisition):
+    session = DBSession()
+    session.add(requisition)
+    session.commit()
 
 def getAccounts():
     session = DBSession()
@@ -32,4 +51,3 @@ def saveAccount(account):
     session = DBSession()
     session.add(account)
     session.commit()
-

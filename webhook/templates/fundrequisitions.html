@@ -2,27 +2,27 @@
 {% block title %}Index{% endblock %}
 
 {% block content %}
-<h1>Accounts</h1>
+<h1>Fund Requisitionsh</h1>
 
 <div class="table-responsive">
     <table class="table table-bordered table-striped">
         <tr>
             <th>ID</th>
-            <th>User Name</th>
-            <th>Email</th>
-            <th>Mobile</th>
+            <th>ITS Account</th>
+            <th>Ammount</th>
+            <th>Date</th>
             <th>Approval Status</th>
             <th>Action</th>
 
         </tr>
 
-        {% for account in accounts %}
+        {% for requisition in requisitions %}
         <tr>
             <td>{{ loop.index }}</td>
-            <td>{{ account.username }}</td>
-            <td>{{ account.email }}</td>
-            <td>{{ account.mobile }}</td>
-            {% if account.isApproved == 1 %}
+            <td>{{ requisition.itsaccno }}</td>
+            <td>{{ requisition.ammount }}</td>
+            <td>{{ requisition.reqdate }}</td>
+            {% if requisition.isApproved == 1 %}
             <td>Approved</td>
             {% else %}
             <td>Waiting For Approval</td>
