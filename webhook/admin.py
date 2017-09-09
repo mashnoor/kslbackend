@@ -17,10 +17,10 @@ app.register_blueprint(requisitions_api)
 app.register_blueprint(account_request_api)
 
 
-@app.route('/dashboard')
-@flask_login.login_required
+@app.route('/abc')
+
 def dashboard():
-    return flask.render_template('dashboard.html')
+    return "Hello world"
 
 
 if __name__ == '__main__':

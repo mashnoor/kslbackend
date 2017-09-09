@@ -71,29 +71,25 @@ def getItsAccounts(masterId):
     session = DBSession()
     return session.query(Account).filter_by(masterId=masterId).first().itsaccounts
 
+def getItsAccountsMobile(masterId, masterPass):
+    session = DBSession()
+    return session.query(Account).filter_by(masterId=masterId, masterPassword=masterPass).first().itsaccounts
+
 def addItsAccoount(masterid, itsaccount):
     session = DBSession()
     account = session.query(Account).filter_by(masterId=masterid).first()
     account.itsaccounts.append(itsaccount)
     session.commit()
 
-'''
-def saveRequisitionRequest(requisition):
-    session = DBSession()
-    session.add(requisition)
-    session.commit()
 
-
-def saveAccount(account):
-    session = DBSession()
-    session.add(account)
-    session.commit()
-
-'''
 def save(data):
     session = DBSession()
     session.add(data)
     session.commit()
+
+def isValiedMasterId(masterid, masterpassword):
+    session = DBSession()
+    return session.query(Account).filter_by(masterId=masterid, masterPassword=masterpassword).scalar() is not None
 
 '''
 itsacc = ITSAccount()

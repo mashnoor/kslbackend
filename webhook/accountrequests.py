@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 import dbhelper
-
+import json
 account_request_api = Blueprint('account_request_api', __name__)
 
 
@@ -43,6 +43,21 @@ def addaccount():
 def itsaccounts(masterid):
     return render_template("itsaccounts.html", masterid=masterid, itsaccounts=dbhelper.getItsAccounts(masterid))
 
+@account_request_api.route("/itsaccounts", methods=["POST"])
+def getItsAccounts():
+    r = request.get_json()
+    masterid = r['masterid']
+    masterpass = r['masterpass']
+    itsaccounts = dbhelper.getItsAccountsMobile(masterid, masterpass)
+    allitsaccounts = []
+    for itsaccount in itsaccounts:
+        data = {
+            "itsaccountno" : itsaccount.itsNo,
+            "itsaccountpass": itsaccount.password
+        }
+        allitsaccounts.append(data)
+    return json.dumps(allitsaccounts)
+
 @account_request_api.route("/<masterid>/additsaccount", methods=["POST"])
 def additsaccount(masterid):
     itsacc = dbhelper.ITSAccount()
@@ -50,3 +65,13 @@ def additsaccount(masterid):
     itsacc.password = request.form.get("itspassword")
     dbhelper.addItsAccoount(masterid, itsacc)
     return itsaccounts(masterid)
+
+@account_request_api.route("/masterlogin", methods=["POST"])
+def master_login():
+    r = request.get_json()
+    masterid = r['masterid']
+    masterpass = r['masterpass']
+    if dbhelper.isValiedMasterId(masterid, masterpass):
+        return "success"
+    else:
+        return "failed"
