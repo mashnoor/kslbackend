@@ -66,6 +66,15 @@ def additsaccount(masterid):
     dbhelper.addItsAccoount(masterid, itsacc)
     return itsaccounts(masterid)
 
+@account_request_api.route("/<masterid>/additsaccountmobile", methods=["POST"])
+def additsaccountmobile(masterid):
+    itsacc = dbhelper.ITSAccount()
+    r = request.get_json()
+    itsacc.itsNo = r["itsaccountno"]
+    itsacc.password = r["itspassword"]
+    dbhelper.addItsAccoount(masterid, itsacc)
+    return "success"
+
 @account_request_api.route("/masterlogin", methods=["POST"])
 def master_login():
     r = request.get_json()
