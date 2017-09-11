@@ -71,7 +71,7 @@ def additsaccountmobile(masterid):
     itsacc = dbhelper.ITSAccount()
     r = request.get_json()
     itsacc.itsNo = r["itsaccountno"]
-    itsacc.password = r["itspassword"]
+    itsacc.password = r["itsaccountpass"]
     dbhelper.addItsAccoount(masterid, itsacc)
     return "success"
 
