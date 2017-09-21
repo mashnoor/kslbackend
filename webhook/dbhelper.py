@@ -116,6 +116,12 @@ def addNotification(masterid, notification):
     account = session.query(Account).filter_by(masterId=masterid).first()
     account.notifications.append(notification)
     session.commit()
+def addGroupNotification(masterids, notification):
+    session = DBSession()
+    for masterid in masterids:
+        account = session.query(Account).filter_by(masterId=masterid).first()
+        account.notifications.append(notification)
+    session.commit()
 def save(data):
     session = DBSession()
     session.add(data)

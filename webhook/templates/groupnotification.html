@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+
+{% block content %}
+    <h1>Send Group Notification</h1>
+
+    <form action="{{ url_for('notification_api.sendgroupnotification') }}" method="post">
+        <div class="form-group">
+            <label for="masterid">Select Master ID</label><br>
+
+            {% for account in accounts %}
+                <input type="checkbox" name="masterid" value="{{ account.masterId }}"> {{ account.masterId }}<br>
+            {% endfor %}
+
+        </div>
+        <div class="form-group">
+            <label for="title">Enter Message Title</label>
+            <input name="title" id="title" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="message">Enter Message</label>
+            <textarea name="message" class="form-control" rows="3" placeholder="Enter Message" required></textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Send Notification">
+        </div>
+
+    </form>
+
+{% endblock %}
