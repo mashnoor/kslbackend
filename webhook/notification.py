@@ -40,9 +40,11 @@ def sendsinglenotification():
 
     message_title = request.form.get("title")
     message_body = request.form.get("message")
+
     newNotif = dbhelper.Notification()
     newNotif.title = message_title
     newNotif.message = message_body
+    newNotif.sendTimestamp = datetime.datetime.now()
     dbhelper.addNotification(masterid, newNotif)
     result = push_service.notify_single_device(registration_id=token, message_title=message_title,
                                                message_body=message_body)
