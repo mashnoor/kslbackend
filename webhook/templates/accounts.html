@@ -33,15 +33,17 @@
                 <th>Master ID</th>
                 <th>Name</th>
                 <th>Detail</th>
+                <th>Token</th>
 
 
             </tr>
             {% for account in accounts %}
                 <tr>
                     <td>{{ loop.index }}</td>
-                    <td><a href="/{{ account.masterId }}/itsaccounts">{{ account.masterId }}</a> </td>
+                    <td><a href="/{{ account.masterId }}/itsaccounts">{{ account.masterId }}</a></td>
                     <td>{{ account.name }}</td>
                     <td>{{ account.detail }}</td>
+                    <td>{{ account.token }}</td>
                 </tr>
 
             {% endfor %}

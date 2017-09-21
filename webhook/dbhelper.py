@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -39,7 +39,21 @@ class Account(Base):
     masterPassword = Column(String)
     name = Column(String)
     detail = Column(String)
+    token = Column(String)
     itsaccounts = relationship('ITSAccount', backref="accounts")
+    notifications = relationship('Notification', backref="accounts")
+
+
+class Notification(Base):
+    __tablename__ = 'notifications'
+    id = Column(Integer, primary_key=True)
+    title = Column(String)
+    message = Column(String)
+    sendTimestamp = Column(DateTime)
+
+    accountId = Column(String, ForeignKey("accounts.masterId"))
+
+
 
 class ITSAccount(Base):
     __tablename__ = 'itsaccounts'
@@ -53,6 +67,10 @@ engine = create_engine('sqlite:///kslbackend.db')
 Base.metadata.create_all(engine)
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
+
+def getMasterAccounts():
+    session = DBSession()
+    return session.query(Account).all()
 
 def getRequisitions():
     session = DBSession()
@@ -81,7 +99,23 @@ def addItsAccoount(masterid, itsaccount):
     account.itsaccounts.append(itsaccount)
     session.commit()
 
+def setToken(masterid, token):
+    session = DBSession()
+    account = session.query(Account).filter_by(masterId=masterid).first()
+    account.token = token
+    session.commit()
 
+def getToken(masterid):
+    session = DBSession()
+    account = session.query(Account).filter_by(masterId=masterid).first()
+    return account.token
+
+
+def addNotification(masterid, notification):
+    session = DBSession()
+    account = session.query(Account).filter_by(masterId=masterid).first()
+    account.notifications.append(notification)
+    session.commit()
 def save(data):
     session = DBSession()
     session.add(data)
@@ -90,6 +124,11 @@ def save(data):
 def isValiedMasterId(masterid, masterpassword):
     session = DBSession()
     return session.query(Account).filter_by(masterId=masterid, masterPassword=masterpassword).scalar() is not None
+
+def getNotifications(masterid):
+    session = DBSession()
+    account = session.query(Account).filter_by(masterId=masterid).first()
+    return account.notifications
 
 '''
 itsacc = ITSAccount()

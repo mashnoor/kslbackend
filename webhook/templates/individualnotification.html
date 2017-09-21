@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+
+{% block content %}
+    <h1>Send Individual Notification</h1>
+
+    <form action="{{ url_for('notification_api.sendsinglenotification') }}" method="post">
+        <div class="form-group">
+            <label for="masterid">Select Master ID</label>
+            <select name="masterid" class="form-control">
+                {% for account in accounts %}
+                    <option value="{{ account.masterId }}">{{ account.masterId }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="title">Enter Message Title</label>
+            <input name="title" id="title" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="message">Enter Message</label>
+            <textarea name="message" class="form-control" rows="3" placeholder="Enter Message" required></textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Send Notification">
+        </div>
+
+    </form>
+
+{% endblock %}
