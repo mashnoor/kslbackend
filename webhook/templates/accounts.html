@@ -34,6 +34,7 @@
                 <th>Name</th>
                 <th>Detail</th>
                 <th>Token</th>
+                <th>Linked Accounts</th>
 
 
             </tr>
@@ -44,6 +45,12 @@
                     <td>{{ account.name }}</td>
                     <td>{{ account.detail }}</td>
                     <td>{{ account.token }}</td>
+                    <td><a href="/{{ account.masterId }}/itsaccounts" class="btn btn-primary btn-md active"
+                           role="button" aria-pressed="true">ITS Accounts</a><br>
+                        <a href="/{{ account.masterId }}/clientids" class="btn btn-primary btn-md active" role="button"
+                           aria-pressed="true">Client IDs</a>
+
+                    </td>
                 </tr>
 
             {% endfor %}

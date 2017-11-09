@@ -84,3 +84,15 @@ def master_login():
         return "success"
     else:
         return "failed"
+
+@account_request_api.route("/<masterid>/clientids/")
+def clientids(masterid):
+    return render_template("clientids.html", masterid=masterid, clientids=dbhelper.getClientIds(masterid))
+
+@account_request_api.route("/<masterid>/addclientid", methods=["POST"])
+def addclientid(masterid):
+    client = dbhelper.Clientid()
+    client.clientidno = request.form.get("clientid")
+
+    dbhelper.addClientId(masterid, client)
+    return clientids(masterid)

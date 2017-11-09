@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+
+{% block content %}
+    <form action="/{{ masterid }}/addclientid" method="post">
+        <div class="form-group">
+            <label for="masterid">Client ID No</label>
+            <input class="form-control" name="clientid" id="masterid">
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Add Client ID">
+        </div>
+
+    </form>
+    <h1>Client IDs Accounts for {{ masterid }}</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Client ID</th>
+                <th>Action</th>
+
+
+            </tr>
+            {% for clientid in clientids %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ clientid.clientidno }}</td>
+
+                </tr>
+
+            {% endfor %}
+
+
+        </table>
+
+    </div>
+
+
+{% endblock %}
