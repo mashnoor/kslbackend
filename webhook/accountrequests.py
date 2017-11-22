@@ -96,3 +96,17 @@ def addclientid(masterid):
 
     dbhelper.addClientId(masterid, client)
     return clientids(masterid)
+
+@account_request_api.route("/clientids", methods=["POST"])
+def getClientIDsMobile():
+    r = request.get_json()
+
+    masterid = r['masterid']
+    masterpass = r['masterpass']
+    clientIds = dbhelper.getClientIdsMobile(masterid, masterpass)
+    ids = []
+    for id in clientIds:
+        ids.append(id.clientidno)
+  
+
+    return json.dumps(ids)
