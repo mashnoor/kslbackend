@@ -107,6 +107,6 @@ def getClientIDsMobile():
     ids = []
     for id in clientIds:
         ids.append(id.clientidno)
-  
+
 
     return json.dumps(ids)
