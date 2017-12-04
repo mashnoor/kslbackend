@@ -1,16 +1,19 @@
 from bs4 import BeautifulSoup
 from orderstatus import status
 from flask import Blueprint, render_template, request
-
+import json
 getorderstatus_api = Blueprint('orderstatus_api', __name__)
-@notification_api.route("/getorderstatus", methods = ["POST"])
+@getorderstatus_api.route("/getorderstatus", methods = ["POST"])
 def getorderstatus():
-    req_json = request.get_json()
-    its_id = req_json["itsaccountno"]
-    its_pass = req_json["itsaccountpass"]
+
+    its_id = request.form.get("itsaccountno")
+    its_pass = request.form.get("itsaccountpass")
+    start_date = request.form.get("startdate")
+    end_date = request.form.get("enddate")
 
 
-    statushtml = status(its_id, its_pass)
+    statushtml = status(its_id, its_pass, start_date, end_date)
+
 
     soup = BeautifulSoup(statushtml, 'lxml')
 
@@ -25,8 +28,10 @@ def getorderstatus():
 
     for tr in table.find_all("tr"):
         curr_order = []
-        for td in table.find_all("td"):
+        for td in tr.find_all("td"):
             curr_order.append(str(td.text).strip())
         orders.append(dict(zip(keys, curr_order)))
 
-    return orders
+
+    del orders[0]
+    return json.dumps(orders)

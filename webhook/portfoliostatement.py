@@ -9,12 +9,14 @@ ps_api = 'http://api.kslbd.net:88/client/report/ps/select/sandbox/sandbox/sandbo
 
 @portfoliostatement_api.route('/getportfoliostatement', methods=['POST'])
 def getportfoliostatement():
-    statement_req = request.get_json()
-    client_id = statement_req['client_id']
-    portfolio_date = statement_req['portfolio_date']
+
+    client_id = request.form.get('client_id')
+    portfolio_date = request.form.get('portfolio_date')
+    print(client_id)
+    print(portfolio_date)
     json_str = json.dumps({
         'portfolio_date':portfolio_date,
         'client_id':client_id
     })
     r = requests.get(ps_api + json_str)
-    return r.text
+    return str(r.text)

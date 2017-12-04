@@ -1,4 +1,4 @@
-import grequests, json
+import grequests, json, requests
 
 from bs4 import BeautifulSoup
 from helpers import get_column_values
@@ -15,9 +15,15 @@ for item_info in all_items_info:
 
 
 
-req = (grequests.get(url) for url in item_detail_urls)
+#req = (grequests.get(url) for url in item_detail_urls)
 
-responses = grequests.map(req)
+responses = []
+#responses = grequests.map(req)
+for url in item_detail_urls:
+    print(url)
+    r = requests.get(url)
+    responses.append(r)
+
 
 
 
@@ -38,3 +44,4 @@ for idx, response in enumerate(responses):
     current_item_info.update(get_column_values(str(inner_tables[1]), ['trade', 'volume', 'closeprice', 'ycp', 'capital']))
     with open("item_details/" + item_company_names[idx] + ".txt", "w") as f:
         f.write(json.dumps(current_item_info))
+    print(current_item_info)
