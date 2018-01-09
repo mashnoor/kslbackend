@@ -182,6 +182,7 @@ def deleteItsId(masterid, masterPass, itsid):
         if itsacc.itsNo == itsid:
             # account = session.query(Account).filter_by(masterId=masterid).first()
             session.delete(itsacc)
+            session.commit()
             print("Deleted")
 
 
