@@ -61,12 +61,14 @@ class ITSAccount(Base):
     password = Column(String)
     accountId = Column(String, ForeignKey('accounts.masterId'))
 
+
 class Clientid(Base):
     __tablename__ = 'clientids'
 
     id = Column(Integer, primary_key=True)
     clientidno = Column(String)
     accountId = Column(String, ForeignKey('accounts.masterId'))
+
 
 engine = create_engine('sqlite:///kslbackend.db')
 Base.metadata.create_all(engine)
@@ -155,13 +157,16 @@ def getNotifications(masterid):
     account = session.query(Account).filter_by(masterId=masterid).first()
     return account.notifications
 
+
 def getClientIdsMobile(masterId, masterPass):
     session = DBSession()
     return session.query(Account).filter_by(masterId=masterId, masterPassword=masterPass).first().clientids
 
+
 def getClientIds(masterId):
     session = DBSession()
     return session.query(Account).filter_by(masterId=masterId).first().clientids
+
 
 def addClientId(masterid, clientid):
     session = DBSession()
@@ -171,17 +176,12 @@ def addClientId(masterid, clientid):
     print(clientid.clientidno)
 
 
-def deleteItsId(masterid,masterPass, itsid):
+def deleteItsId(masterid, masterPass, itsid):
     session = DBSession()
     for itsacc in session.query(Account).filter_by(masterId=masterid, masterPassword=masterPass).first().itsaccounts:
         if itsacc.itsNo == itsid:
-            account = session.query(Account).filter_by(masterId=masterid).first()
-            account.itsaccounts.delete(itsacc)
-            print("deleted")
-
-
-
-
+            # account = session.query(Account).filter_by(masterId=masterid).first()
+            session.delete(itsacc)
 
 
 '''
