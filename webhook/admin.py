@@ -11,6 +11,7 @@ from notification import notification_api
 from portfoliostatement import portfoliostatement_api
 from pyfcm import FCMNotification
 from orderstatusparse import getorderstatus_api
+from get_previous_day_end_data import account_request_api
 
 login_manager = flask_login.LoginManager()
 
@@ -22,11 +23,11 @@ app.register_blueprint(account_request_api)
 app.register_blueprint(notification_api)
 app.register_blueprint(portfoliostatement_api)
 app.register_blueprint(getorderstatus_api)
+app.register_blueprint(account_request_api)
 
 
 @app.route('/abc')
 def dashboard():
-
     return "OK"
 
 
