@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 import json
 
-account_request_api = Blueprint('previous_day_end_data', __name__)
+previous_day_end_data_api = Blueprint('previous_day_end_data', __name__)
 import requests
 from bs4 import BeautifulSoup
 
 
-@previous_day_end_data.route('/getdayenddata', methods=['POST'])
+@previous_day_end_data_api.route('/getdayenddata', methods=['POST'])
 def getJsonofDayEnd(fromYear, fromMonth, fromDay, toYear, toMonth, toDay, company):
     fromYear = request.form.get('fromyear')
     fromMonth = request.form.get('frommonth')
