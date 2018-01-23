@@ -92,4 +92,4 @@ def getJsonofDayEnd(fromYear, fromMonth, fromDay, toYear, toMonth, toDay, compan
     return json.dumps(data)
 
 
-print getJsonofDayEnd("2016", "06", "19", "2018", "01", "23", "ACI")
+
