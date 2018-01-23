@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 
 @previous_day_end_data_api.route('/getdayenddata', methods=['POST'])
-def getJsonofDayEnd(fromYear, fromMonth, fromDay, toYear, toMonth, toDay, company):
+def getJsonofDayEnd():
     fromYear = request.form.get('fromyear')
     fromMonth = request.form.get('frommonth')
     fromDay = request.form.get('fromday')
