@@ -6,6 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import date
 from datetime import datetime
+import functools
 
 
 def customSort(data1, data2):
