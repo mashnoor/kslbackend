@@ -112,7 +112,7 @@ def getJsonofDayEnd():
     for tr in table.find_all("tr"):
         curr_data = {}
         tds = tr.find_all("td")
-        curr_data["date"] = str(tds[1].text)
+        curr_data["date"] = str(tds[1].text).strip()
         curr_data["volume"] = str(tds[11].text).replace(",", "")
         data.append(curr_data)
     del data[0]
