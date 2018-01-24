@@ -16,7 +16,7 @@ def customSort(data1, data2):
     date1 = datetime.strptime(d0, '%Y-%m-%d').date()
 
     date2 = datetime.strptime(d1, '%Y-%m-%d').date()
-    if (date1 - date2).days < 0:
+    if (date1 - date2).days > 0:
         return False
     return True
 
