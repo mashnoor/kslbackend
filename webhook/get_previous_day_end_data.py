@@ -4,6 +4,32 @@ import json
 previous_day_end_data_api = Blueprint('previous_day_end_data', __name__)
 import requests
 from bs4 import BeautifulSoup
+from datetime import date
+from datetime import datetime
+
+
+def customSort(data1, data2):
+    d0 = data1['date']
+    d1 = data2['date']
+
+    date1 = datetime.strptime(d0, '%Y-%m-%d').date()
+
+    date2 = datetime.strptime(d1, '%Y-%m-%d').date()
+    if (date1 - date2).days < 0:
+        return False
+    return True
+
+
+def process(data):
+    sorted(data, cmp=customSort)
+    new_datas = []
+    startDate = datetime.strptime(data[0]["date"], '%Y-%m-%d').date()
+    for d in data:
+        curr_data = d
+        delta = datetime.strptime(d["date"], '%Y-%m-%d').date() - startDate
+        curr_data['diff'] = delta
+        new_datas.append(curr_data)
+    return new_datas
 
 
 @previous_day_end_data_api.route('/getdayenddata', methods=['POST'])
@@ -89,7 +115,5 @@ def getJsonofDayEnd():
         curr_data["volume"] = str(tds[11].text).replace(",", "")
         data.append(curr_data)
     del data[0]
-    return json.dumps(data)
 
-
-
+    return json.dumps(process(data))
