@@ -22,9 +22,9 @@ def customSort(data1, data2):
 
 
 def process(data):
-    sorted(data, key=functools.cmp_to_key(customSort))
+    #sorted(data, key=functools.cmp_to_key(customSort))
     new_datas = []
-    startDate = datetime.strptime(data[0]["date"], '%Y-%m-%d').date()
+    startDate = datetime.strptime(data[-1]["date"], '%Y-%m-%d').date()
     for d in data:
         curr_data = d
         delta = datetime.strptime(d["date"], '%Y-%m-%d').date() - startDate
