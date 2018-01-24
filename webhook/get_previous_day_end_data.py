@@ -21,7 +21,7 @@ def customSort(data1, data2):
 
 
 def process(data):
-    sorted(data, cmp=customSort)
+    sorted(data, key=functools.cmp_to_key(customSort))
     new_datas = []
     startDate = datetime.strptime(data[0]["date"], '%Y-%m-%d').date()
     for d in data:
