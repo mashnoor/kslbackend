@@ -28,7 +28,7 @@ def process(data):
     for d in data:
         curr_data = d
         delta = datetime.strptime(d["date"], '%Y-%m-%d').date() - startDate
-        curr_data['diff'] = delta
+        curr_data['diff'] = str(delta.days)
         new_datas.append(curr_data)
     return new_datas
 
