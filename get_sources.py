@@ -29,13 +29,10 @@ for res in response_r:
 
     try:
         f = open("sources/" + all_items[i] + ".txt", "w+")
-        f.write(res.content)
+        f.write(str(res.text).encode('ascii', 'ignore').decode('ascii'))
         f.close()
-
     except:
-        print("Error :" + all_items[i])
+        print("Error: " + all_items[i])
 
-    print(all_items[i])
     i += 1
-    print (res.status_code)
 

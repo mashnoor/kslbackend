@@ -7,3 +7,4 @@ item_details
 get_item_details.js
 webhook/kslbackend.db
 __pycache__
+sources/

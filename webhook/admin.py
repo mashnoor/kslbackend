@@ -1,10 +1,8 @@
 from flask import Flask, request, render_template
 
-import flask
 
-from loginapi import login_api
 
-import flask_login
+
 from requisitions import requisitions_api
 from accountrequests import account_request_api
 from notification import notification_api
@@ -12,18 +10,20 @@ from portfoliostatement import portfoliostatement_api
 from pyfcm import FCMNotification
 from orderstatusparse import getorderstatus_api
 from get_previous_day_end_data import previous_day_end_data_api
+from get_item_details import get_item_detail_api
 
-login_manager = flask_login.LoginManager()
+
 
 # Flask app should start in global layout
 app = Flask(__name__)
-app.register_blueprint(login_api)
+
 app.register_blueprint(requisitions_api)
 app.register_blueprint(account_request_api)
 app.register_blueprint(notification_api)
 app.register_blueprint(portfoliostatement_api)
 app.register_blueprint(getorderstatus_api)
 app.register_blueprint(previous_day_end_data_api)
+app.register_blueprint(get_item_detail_api)
 
 
 @app.route('/abc')
