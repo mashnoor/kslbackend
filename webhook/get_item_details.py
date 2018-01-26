@@ -87,7 +87,7 @@ def getItemDetail(item_name):
 
     authorized_capital = basic_info_table[3].replace("Authorized Capital (mn)", "").strip()
     print("Authorized Capital: " + authorized_capital)
-    paidupvalue = basic_info_table[4].replace("Paid-up Capital (mn)", "").strip()
+    paidupvalue = basic_info_table[4].replace("Paid-up Capital (mn)", "").replace("\n", "").replace("\r", "").strip().split(" ")[0]
     print("Paid Up Value: " + paidupvalue)
 
     facevalue = basic_info_table[5].replace("Face/par Value", "").strip()
@@ -276,7 +276,7 @@ def getItemDetail(item_name):
     final_result["sp_institute"] = institute  # institute
     final_result["sp_foreign"] = foreign  # foreign
     final_result["sp_public"] = public  # public
-    final_result["value(mn)"] = value
+    final_result["value"] = value
     final_result["item"] = item_name
 
     json_converted = json.dumps(final_result)
