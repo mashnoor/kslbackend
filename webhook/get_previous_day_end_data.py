@@ -113,7 +113,11 @@ def getJsonofDayEnd():
         curr_data = {}
         tds = tr.find_all("td")
         curr_data["date"] = str(tds[1].text).strip()
-        curr_data["volume"] = str(tds[11].text).replace(",", "")
+        curr_data["volume"] = str(tds[11].text).replace(",", "").strip()
+        curr_data['high'] = str(tds[4].text).strip()
+        curr_data['low'] = str(tds[5].text).strip()
+        curr_data['openprice'] = str(tds[6].text).strip()
+        curr_data['closeprice'] = str(tds[7].text).strip()
         data.append(curr_data)
     del data[0]
 
