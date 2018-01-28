@@ -1,25 +1,13 @@
-from flask import Blueprint, render_template, request, redirect, url_for
 import json
 
-previous_day_end_data_api = Blueprint('previous_day_end_data', __name__)
+from flask import Blueprint, request
+
+
 import requests
 from bs4 import BeautifulSoup
-from datetime import date
 from datetime import datetime
-import functools
 
-
-def customSort(data1, data2):
-    d0 = data1['date']
-    d1 = data2['date']
-
-    date1 = datetime.strptime(d0, '%Y-%m-%d').date()
-
-    date2 = datetime.strptime(d1, '%Y-%m-%d').date()
-    if (date1 - date2).days > 0:
-        return False
-    return True
-
+previous_day_end_data_api = Blueprint('previous_day_end_data', __name__)
 
 def process(data):
     #sorted(data, key=functools.cmp_to_key(customSort))
