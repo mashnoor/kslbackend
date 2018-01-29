@@ -59,8 +59,8 @@ def getItemDetail(item_name):
     daysRange = str(values[12]).replace("Day's Range", "").strip()
     print("Days Range: " + daysRange)
 
-    value = str(values[13]).replace("Day's Value (mn)", "").strip()
-    print(value)
+    amount_traded_in_bdt =  str(values[13]).replace("Day's Value (mn)", "").strip()
+    print("Amount traded in bdt (mn): " + amount_traded_in_bdt)
     weekRange = str(values[14]).replace("52 Weeks' Moving Range", "").strip()
     print("Week's Range: " + weekRange)
     volume = str(values[15]).replace("Day's Volume (Nos.)", "").strip()
@@ -276,7 +276,7 @@ def getItemDetail(item_name):
     final_result["sp_institute"] = institute  # institute
     final_result["sp_foreign"] = foreign  # foreign
     final_result["sp_public"] = public  # public
-    final_result["value"] = value
+    final_result["amounttradedinbdt"] = amount_traded_in_bdt
     final_result["item"] = item_name
 
     json_converted = json.dumps(final_result)
