@@ -17,13 +17,12 @@ for tr in table.find_all("tr"):
     curr_gainer["closeprice"] = str(td[2].text).replace("\r\n", "").strip()
     curr_gainer["high"] = str(td[3].text).replace("\r\n", "").strip()
     curr_gainer["low"] = str(td[4].text).replace("\r\n", "").strip()
-    curr_gainer["closeprice"] = str(td[5].text).replace("\r\n", "").strip()
-    curr_gainer["change"] = str(td[6].text).replace("\r\n", "").strip()
+    curr_gainer["ycp"] = str(td[5].text).replace("\r\n", "").strip()
+    curr_gainer["changeval"] = str(td[6].text).replace("\r\n", "").strip()
     top_gainers.append(curr_gainer)
 del top_gainers[0]
 with open("top_gainers.txt", "w") as f:
     f.write(json.dumps(top_gainers))
-
 
 r = requests.get(top_ten_losers_url)
 soup = BeautifulSoup(r.content, "html.parser")
@@ -38,8 +37,8 @@ for tr in table.find_all("tr"):
     curr_loser["closeprice"] = str(td[2].text).replace("\r\n", "").strip()
     curr_loser["high"] = str(td[3].text).replace("\r\n", "").strip()
     curr_loser["low"] = str(td[4].text).replace("\r\n", "").strip()
-    curr_loser["closeprice"] = str(td[5].text).replace("\r\n", "").strip()
-    curr_loser["change"] = str(td[6].text).replace("\r\n", "").strip()
+    curr_loser["ycp"] = str(td[5].text).replace("\r\n", "").strip()
+    curr_loser["changeval"] = str(td[6].text).replace("\r\n", "").strip()
     top_losers.append(curr_loser)
 
 del top_losers[0]

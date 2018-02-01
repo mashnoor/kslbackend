@@ -14,8 +14,9 @@ def getorderstatus():
 
     statushtml = status(its_id, its_pass, start_date, end_date)
 
+    print(statushtml)
 
-    soup = BeautifulSoup(statushtml, 'lxml')
+    soup = BeautifulSoup(statushtml, 'html.parser')
 
     table_attrs = {"id":"searchtable", "style":"width:100% ;valign=top", "class":"tableheading"}
 
