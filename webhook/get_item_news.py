@@ -18,6 +18,7 @@ def getItemNews(company_name):
     for table in tables:
         rows = table.find_all("tr")
         curr_news = {}
+        curr_news['title'] = company_name
         curr_news["body"] = rows[1].text.replace("News:", "")
         curr_news["date"] = rows[2].text.replace("Post Date:", "")
 
