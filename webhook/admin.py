@@ -11,6 +11,7 @@ from get_item_details import get_item_detail_api
 from financialledger import financial_ledger_api
 from market_depth import market_depth_api
 from trade import trade_api
+from get_item_news import get_item_news_api
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -25,6 +26,7 @@ app.register_blueprint(get_item_detail_api)
 app.register_blueprint(financial_ledger_api)
 app.register_blueprint(market_depth_api)
 app.register_blueprint(trade_api)
+app.register_blueprint(get_item_news_api)
 
 
 @app.route('/abc')

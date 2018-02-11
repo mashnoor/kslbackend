@@ -1,6 +1,7 @@
 import requests, json
 from bs4 import BeautifulSoup
 import re
+import datetime
 
 url = "http://cse.com.bd/news_details.php"
 
@@ -22,6 +23,7 @@ for news in news_list:
        curr_news = {}
        curr_news["title"] = title
        curr_news["body"] = body
+       curr_news['date'] = datetime.datetime.today().strftime('%Y-%m-%d')
        all_news.append(curr_news)
    except:
        pass
