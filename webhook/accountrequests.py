@@ -86,18 +86,6 @@ def deleteItsAccount():
     return "success"
 
 
-
-@account_request_api.route("/masterlogin", methods=["POST"])
-def master_login():
-    r = request.get_json()
-    masterid = r['masterid']
-    masterpass = r['masterpass']
-    if dbhelper.isValiedMasterId(masterid, masterpass):
-        return "success"
-    else:
-        return "failed"
-
-
 @account_request_api.route("/<masterid>/clientids/")
 def clientids(masterid):
     return render_template("clientids.html", masterid=masterid, clientids=dbhelper.getClientIds(masterid))

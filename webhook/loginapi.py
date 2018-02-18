@@ -1,28 +1,23 @@
 from flask import Blueprint
 from flask import request, render_template, redirect, url_for
-import flask_login
+import flask_login, dbhelper
 
 login_api = Blueprint('login_api', __name__)
-users = {'keltu': {'password': 'keltu9876'}}
 
-class User(flask_login.UserMixin):
-    pass
 
-@login_api.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'GET':
-         return render_template('login.html')
+@login_api.route("/masterlogin", methods=["POST"])
+def master_login():
+    masterid = request.form.get('masterid')
+    masterpass = request.form.get('masterpass')
+    if dbhelper.isValiedMasterId(masterid, masterpass):
+        return "success"
+    else:
+        return "failed"
 
-    username = request.form['username']
-    if request.form['password'] == users[username]['password']:
-        user = User()
-        user.id = username
-        flask_login.login_user(user)
-        return redirect(url_for('dashboard'))
 
-    return "Your credentials didn't match :3"
-
-@login_api.route('/logout')
-def logout():
-    flask_login.logout_user()
-    return redirect(url_for('login'))
+@login_api.route("/settoken", methods=["POST"])
+def settoken():
+    token = request.form.get('token')
+    masterId = request.form.get('masterid')
+    dbhelper.setToken(masterId, token)
+    return "success"

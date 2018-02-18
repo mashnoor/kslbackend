@@ -4,7 +4,7 @@ from requisitions import requisitions_api
 from accountrequests import account_request_api
 from notification import notification_api
 from portfoliostatement import portfoliostatement_api
-from pyfcm import FCMNotification
+
 from orderstatusparse import getorderstatus_api
 from get_previous_day_end_data import previous_day_end_data_api
 from get_item_details import get_item_detail_api
@@ -13,6 +13,7 @@ from market_depth import market_depth_api
 from trade import trade_api
 from get_item_news import get_item_news_api
 from recoverpassword import recoverpassword_api
+from loginapi import login_api
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -29,6 +30,7 @@ app.register_blueprint(market_depth_api)
 app.register_blueprint(trade_api)
 app.register_blueprint(get_item_news_api)
 app.register_blueprint(recoverpassword_api)
+app.register_blueprint(login_api)
 
 
 @app.route('/abc')

@@ -31,9 +31,8 @@ def addnotification():
 
 @notification_api.route("/settoken", methods=["POST"])
 def settoken():
-    r = request.get_json()
-    token = r["token"]
-    masterId = r["masterid"]
+    token = request.form.get('token')
+    masterId = request.form.get('masterid')
     dbhelper.setToken(masterId, token)
     return "success"
 
