@@ -209,4 +209,3 @@ saveAccount(acc)
 
 '''
 
-print(getMasterPassword("123456@hhhh.com", "1234"))
