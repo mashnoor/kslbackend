@@ -35,6 +35,7 @@ def addaccount():
     acc.name = request.form.get("accountname")
     acc.detail = request.form.get("accountdetail")
     acc.masterId = request.form.get("masterid")
+    acc.email = request.form.get("email")
     acc.masterPassword = request.form.get("masterpassword")
     dbhelper.save(acc)
     return accounts()

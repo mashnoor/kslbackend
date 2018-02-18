@@ -20,6 +20,10 @@
             <input class="form-control" id="accountdetail" name="accountdetail">
         </div>
         <div class="form-group">
+            <label for="email">Account Email</label>
+            <input class="form-control" id="email" name="email" type="email">
+        </div>
+        <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Add Account">
         </div>
 
@@ -33,6 +37,7 @@
                 <th>Master ID</th>
                 <th>Name</th>
                 <th>Detail</th>
+                <th>Email</th>
                 <th>Token</th>
                 <th>Linked Accounts</th>
 
@@ -44,6 +49,7 @@
                     <td><a href="/{{ account.masterId }}/itsaccounts">{{ account.masterId }}</a></td>
                     <td>{{ account.name }}</td>
                     <td>{{ account.detail }}</td>
+                    <td>{{ account.email }}</td>
                     <td>{{ account.token }}</td>
                     <td><a href="/{{ account.masterId }}/itsaccounts" class="btn btn-primary btn-md active"
                            role="button" aria-pressed="true">ITS Accounts</a><br>

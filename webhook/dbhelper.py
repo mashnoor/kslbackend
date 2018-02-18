@@ -38,6 +38,7 @@ class Account(Base):
     name = Column(String)
     detail = Column(String)
     token = Column(String)
+    email = Column(String)
     itsaccounts = relationship('ITSAccount', backref="accounts")
     notifications = relationship('Notification', backref="accounts")
     clientids = relationship('Clientid', backref="accounts")
@@ -186,6 +187,11 @@ def deleteItsId(masterid, masterPass, itsid):
             print("Deleted")
 
 
+def getMasterPassword(email, masterId):
+    session = DBSession()
+    return session.query(Account).filter_by(email=email, masterId=masterId).first().masterPassword
+
+
 '''
 itsacc = ITSAccount()
 itsacc.password = "1111"
@@ -202,3 +208,5 @@ acc.itsaccounts.append(itsacc)
 saveAccount(acc)
 
 '''
+
+print(getMasterPassword("123456@hhhh.com", "1234"))
