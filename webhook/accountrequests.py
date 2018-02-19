@@ -66,13 +66,15 @@ def additsaccount(masterid):
     dbhelper.addItsAccoount(masterid, itsacc)
     return itsaccounts(masterid)
 
-@account_request_api.route("/<masterid>/additsaccountmobile", methods=["POST"])
-def additsaccountmobile(masterid):
+@account_request_api.route("/additsaccountmobile", methods=["POST"])
+def additsaccountmobile():
     itsacc = dbhelper.ITSAccount()
-    r = request.get_json()
-    itsacc.itsNo = r["itsaccountno"]
-    itsacc.password = r["itsaccountpass"]
-    dbhelper.addItsAccoount(masterid, itsacc)
+    masterId = request.form.get('masterid')
+    itsAccNo = request.form.get('itsaccno')
+    itsAccPass  = request.form.get('itsaccpass')
+    itsacc.itsNo = itsAccNo
+    itsacc.password = itsAccPass
+    dbhelper.addItsAccoount(masterId, itsacc)
     return "success"
 
 @account_request_api.route("/deleteitsaccount", methods=["POST"])
