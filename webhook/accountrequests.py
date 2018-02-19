@@ -46,9 +46,8 @@ def itsaccounts(masterid):
 
 @account_request_api.route("/itsaccounts", methods=["POST"])
 def getItsAccounts():
-    r = request.get_json()
-    masterid = r['masterid']
-    masterpass = r['masterpass']
+    masterid = request.form.get('masterid')
+    masterpass = request.form.get('masterpass')
     itsaccounts = dbhelper.getItsAccountsMobile(masterid, masterpass)
     allitsaccounts = []
     for itsaccount in itsaccounts:

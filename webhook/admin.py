@@ -41,5 +41,5 @@ def dashboard():
 if __name__ == '__main__':
     port = 5003
     # print("Starting app on port %d" % port)
-    app.run(port=port)
+    app.run(port=port, threaded=True)
     # app.run(host='0.0.0.0', port=port)
