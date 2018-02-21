@@ -12,12 +12,12 @@ class AccountRequest(Base):
     __tablename__ = 'accountrequests'
 
     id = Column(Integer, primary_key=True)
-    username = Column(String)
+    name = Column(String)
 
     password = Column(String)
     mobile = Column(String)
     email = Column(String)
-    isApproved = Column(Integer)
+    details = Column(String)
 
 
 class FundRequisition(Base):

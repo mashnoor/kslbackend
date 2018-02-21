@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 import dbhelper
 import json
+
 account_request_api = Blueprint('account_request_api', __name__)
 
 
@@ -12,13 +13,12 @@ def accountrequests():
 
 @account_request_api.route("/requestaccount", methods=["POST"])
 def requestaccount():
-    req_json = request.get_json()
     acc = dbhelper.AccountRequest()
-    acc.email = req_json['email']
-    acc.mobile = req_json['mobile']
-    acc.password = req_json['username']
-    acc.username = req_json['password']
-    acc.isApproved = 0
+    acc.email = request.form.get("email")
+    acc.mobile = request.form.get("phone")
+    acc.password = ""
+    acc.name = request.form.get("accname")
+    acc.details = request.form.get("details")
     dbhelper.save(acc)
     return "Request for account creation in successful"
 
@@ -26,7 +26,6 @@ def requestaccount():
 @account_request_api.route("/accounts")
 def accounts():
     return render_template("accounts.html", accounts=dbhelper.getAccounts())
-
 
 
 @account_request_api.route("/addaccount", methods=["POST"])
@@ -40,9 +39,11 @@ def addaccount():
     dbhelper.save(acc)
     return accounts()
 
+
 @account_request_api.route("/<masterid>/itsaccounts/")
 def itsaccounts(masterid):
     return render_template("itsaccounts.html", masterid=masterid, itsaccounts=dbhelper.getItsAccounts(masterid))
+
 
 @account_request_api.route("/itsaccounts", methods=["POST"])
 def getItsAccounts():
@@ -52,11 +53,12 @@ def getItsAccounts():
     allitsaccounts = []
     for itsaccount in itsaccounts:
         data = {
-            "itsaccountno" : itsaccount.itsNo,
+            "itsaccountno": itsaccount.itsNo,
             "itsaccountpass": itsaccount.password
         }
         allitsaccounts.append(data)
     return json.dumps(allitsaccounts)
+
 
 @account_request_api.route("/<masterid>/additsaccount", methods=["POST"])
 def additsaccount(masterid):
@@ -66,16 +68,18 @@ def additsaccount(masterid):
     dbhelper.addItsAccoount(masterid, itsacc)
     return itsaccounts(masterid)
 
+
 @account_request_api.route("/additsaccountmobile", methods=["POST"])
 def additsaccountmobile():
     itsacc = dbhelper.ITSAccount()
     masterId = request.form.get('masterid')
     itsAccNo = request.form.get('itsaccno')
-    itsAccPass  = request.form.get('itsaccpass')
+    itsAccPass = request.form.get('itsaccpass')
     itsacc.itsNo = itsAccNo
     itsacc.password = itsAccPass
     dbhelper.addItsAccoount(masterId, itsacc)
     return "success"
+
 
 @account_request_api.route("/deleteitsaccount", methods=["POST"])
 def deleteItsAccount():
@@ -91,6 +95,7 @@ def deleteItsAccount():
 def clientids(masterid):
     return render_template("clientids.html", masterid=masterid, clientids=dbhelper.getClientIds(masterid))
 
+
 @account_request_api.route("/<masterid>/addclientid", methods=["POST"])
 def addclientid(masterid):
     client = dbhelper.Clientid()
@@ -99,15 +104,14 @@ def addclientid(masterid):
     dbhelper.addClientId(masterid, client)
     return clientids(masterid)
 
+
 @account_request_api.route("/clientids", methods=["POST"])
 def getClientIDsMobile():
-
     masterid = request.form.get('masterid')
     masterpass = request.form.get('masterpass')
     clientIds = dbhelper.getClientIdsMobile(masterid, masterpass)
     ids = []
     for id in clientIds:
         ids.append(id.clientidno)
-
 
     return json.dumps(ids)

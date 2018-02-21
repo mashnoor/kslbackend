@@ -2,41 +2,33 @@
 {% block title %}Index{% endblock %}
 
 {% block content %}
-<h1>Accounts</h1>
+    <h1>Accounts</h1>
 
-<div class="table-responsive">
-    <table class="table table-bordered table-striped">
-        <tr>
-            <th>ID</th>
-            <th>User Name</th>
-            <th>Email</th>
-            <th>Mobile</th>
-            <th>Approval Status</th>
-            <th>Action</th>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Account Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Details</th>
 
-        </tr>
+            </tr>
 
-        {% for accountrequest in accountrequests %}
-        <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{ accountrequest.username }}</td>
-            <td>{{ accountrequest.email }}</td>
-            <td>{{ accountrequest.mobile }}</td>
-            {% if accountrequest.isApproved == 1 %}
-            <td>Approved</td>
-            {% else %}
-            <td>Waiting For Approval</td>
-            {% endif %}
-            <td>
-                <a href="" class="btn btn-success">Approve</a>
-                <a href="" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
+            {% for accountrequest in accountrequests %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ accountrequest.name }}</td>
+                    <td>{{ accountrequest.email }}</td>
+                    <td>{{ accountrequest.mobile }}</td>
+                    <td>{{ accountrequest.details }}</td>
 
-        {% endfor %}
-    </table>
+                </tr>
 
-</div>
+            {% endfor %}
+        </table>
+
+    </div>
 
 
 {% endblock %}
