@@ -85,8 +85,9 @@ def sendgroupnotification():
     return "Notifcation sent successfully"
 
 
-@notification_api.route("/getnotifications/<masterid>")
-def getnotifications(masterid):
+@notification_api.route("/getnotifications", methods=['POST'])
+def getnotifications():
+    masterid = request.form.get('masterid')
     notifications = dbhelper.getNotifications(masterid)
     notif = []
     for notification in notifications:
