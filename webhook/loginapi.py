@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask import request, render_template, redirect, url_for
-import dbhelper
+import dbhelper, json
 
 login_api = Blueprint('login_api', __name__)
 
@@ -10,7 +10,13 @@ def master_login():
     masterid = request.form.get('masterid')
     masterpass = request.form.get('masterpass')
     if dbhelper.isValiedMasterId(masterid, masterpass):
-        return "success"
+        acc = dbhelper.getMasterAccount(masterid, masterpass)
+        retAcc = {}
+        retAcc['masterid'] = acc.masterId
+        retAcc['masterpass'] = acc.masterPassword
+        retAcc['name'] = acc.name
+
+        return json.dumps(retAcc)
     else:
         return "failed"
 
