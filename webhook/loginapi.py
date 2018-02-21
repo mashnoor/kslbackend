@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask import request, render_template, redirect, url_for
-import flask_login, dbhelper
+import dbhelper
 
 login_api = Blueprint('login_api', __name__)
 
