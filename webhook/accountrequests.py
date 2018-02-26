@@ -1,11 +1,13 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 import dbhelper
 import json
+import flask_login
 
 account_request_api = Blueprint('account_request_api', __name__)
 
 
 @account_request_api.route("/accountrequests")
+@flask_login.login_required
 def accountrequests():
     # print dbhelper.getAccounts()
     return render_template("accountrequests.html", accountrequests=dbhelper.getAccountRequests())
@@ -24,6 +26,7 @@ def requestaccount():
 
 
 @account_request_api.route("/accounts")
+@flask_login.login_required
 def accounts():
     return render_template("accounts.html", accounts=dbhelper.getAccounts())
 
@@ -37,10 +40,11 @@ def addaccount():
     acc.email = request.form.get("email")
     acc.masterPassword = request.form.get("masterpassword")
     dbhelper.save(acc)
-    return accounts()
+    return redirect(url_for('accounts'))
 
 
 @account_request_api.route("/<masterid>/itsaccounts/")
+@flask_login.login_required
 def itsaccounts(masterid):
     return render_template("itsaccounts.html", masterid=masterid, itsaccounts=dbhelper.getItsAccounts(masterid))
 
@@ -92,6 +96,7 @@ def deleteItsAccount():
 
 
 @account_request_api.route("/<masterid>/clientids/")
+@flask_login.login_required
 def clientids(masterid):
     return render_template("clientids.html", masterid=masterid, clientids=dbhelper.getClientIds(masterid))
 

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, request, redirect, url_for
 
 from requisitions import requisitions_api
 from accountrequests import account_request_api
@@ -14,6 +14,7 @@ from trade import trade_api
 from get_item_news import get_item_news_api
 from recoverpassword import recoverpassword_api
 from loginapi import login_api
+import flask_login
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -32,10 +33,74 @@ app.register_blueprint(get_item_news_api)
 app.register_blueprint(recoverpassword_api)
 app.register_blueprint(login_api)
 
+app.secret_key = 'ksl onek joss'
 
-@app.route('/abc')
+login_manager = flask_login.LoginManager()
+
+login_manager.init_app(app)
+
+users = {'ksladmin': {'password': 'kslappsecret'}}
+
+
+class User(flask_login.UserMixin):
+    pass
+
+
+@login_manager.user_loader
+def user_loader(email):
+    if email not in users:
+        return
+
+    user = User()
+    user.id = email
+    return user
+
+
+@login_manager.request_loader
+def request_loader(request):
+    email = request.form.get('email')
+    if email not in users:
+        return
+
+    user = User()
+    user.id = email
+
+    # DO NOT ever store passwords in plaintext and always compare password
+    # hashes using constant-time comparison!
+    user.is_authenticated = request.form['password'] == users[email]['password']
+
+    return user
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+
+    email = request.form['email']
+    if request.form['password'] == users[email]['password']:
+        user = User()
+        user.id = email
+        flask_login.login_user(user)
+        return redirect(url_for('dashboard'))
+
+    return "Credentials didn't match. Contact with administration"
+
+
+@app.route('/dashboard')
+@flask_login.login_required
 def dashboard():
-    return "OK"
+    return render_template('dashboard.html')
+
+
+@app.route('/logout')
+def logout():
+    flask_login.logout_user()
+    return redirect(url_for('login'))
+
+@login_manager.unauthorized_handler
+def unauthorized_handler():
+    return redirect(url_for('login'))
 
 
 if __name__ == '__main__':

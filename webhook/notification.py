@@ -3,21 +3,25 @@ import dbhelper
 import json
 import datetime
 from pyfcm import FCMNotification
+import flask_login
 
 notification_api = Blueprint('notification_api', __name__)
 
 
 @notification_api.route("/individualnotification")
+@flask_login.login_required
 def individualnotification():
     return render_template("individualnotification.html", accounts=dbhelper.getMasterAccounts())
 
 
 @notification_api.route("/groupnotification")
+@flask_login.login_required
 def groupnotification():
     return render_template("groupnotification.html", accounts=dbhelper.getMasterAccounts())
 
 
 @notification_api.route("/addnotification", methods=["POST"])
+@flask_login.login_required
 def addnotification():
     masterid = request.form.get("masterid")
     message = request.form.get("message")
@@ -38,6 +42,7 @@ def settoken():
 
 
 @notification_api.route("/sendsinglenotification", methods=["POST"])
+@flask_login.login_required
 def sendsinglenotification():
     push_service = FCMNotification(
         api_key="AAAAYv7rBNM:APA91bEwGTAwNGMqqFnh_3YSrcbCFvcwXvxlJhdEumZQQ6RU7_PnBlbBZILJwWKEyXLOaKCgLUDXwMiPk8lx1ONWyzrcR1KI5fxLysyAgrgWsLPhPrFjsLYsEiV-rsD39OcMcwd_omvU_zIFI-ynM0j0_RKj0OgRqQ")
@@ -61,6 +66,7 @@ def sendsinglenotification():
 
 
 @notification_api.route("/sendgroupnotification", methods=["POST"])
+@flask_login.login_required
 def sendgroupnotification():
     push_service = FCMNotification(
         api_key="AAAAYv7rBNM:APA91bEwGTAwNGMqqFnh_3YSrcbCFvcwXvxlJhdEumZQQ6RU7_PnBlbBZILJwWKEyXLOaKCgLUDXwMiPk8lx1ONWyzrcR1KI5fxLysyAgrgWsLPhPrFjsLYsEiV-rsD39OcMcwd_omvU_zIFI-ynM0j0_RKj0OgRqQ")

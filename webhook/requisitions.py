@@ -1,10 +1,12 @@
 from flask import Blueprint, render_template, request
 import dbhelper
+import flask_login
 
 requisitions_api = Blueprint('requisitions_api', __name__)
 
 
 @requisitions_api.route("/requisitions")
+@flask_login.login_required
 def requisitions():
     return render_template("fundrequisitions.html", requisitions=dbhelper.getRequisitions())
 
