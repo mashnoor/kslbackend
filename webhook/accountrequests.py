@@ -40,7 +40,7 @@ def addaccount():
     acc.email = request.form.get("email")
     acc.masterPassword = request.form.get("masterpassword")
     dbhelper.save(acc)
-    return redirect(url_for('accounts'))
+    return redirect(url_for('account_request_api.accounts'))
 
 
 @account_request_api.route("/<masterid>/itsaccounts/")
