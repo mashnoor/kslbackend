@@ -15,6 +15,7 @@ from get_item_news import get_item_news_api
 from recoverpassword import recoverpassword_api
 from loginapi import login_api
 import flask_login
+from kslnewsapi import kslnews_api
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -32,6 +33,7 @@ app.register_blueprint(trade_api)
 app.register_blueprint(get_item_news_api)
 app.register_blueprint(recoverpassword_api)
 app.register_blueprint(login_api)
+app.register_blueprint(kslnews_api)
 
 app.secret_key = 'ksl onek joss'
 
@@ -72,6 +74,11 @@ def request_loader(request):
     return user
 
 
+@app.route('/')
+def home():
+    return redirect(url_for('login'))
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
@@ -98,9 +105,15 @@ def logout():
     flask_login.logout_user()
     return redirect(url_for('login'))
 
+
 @login_manager.unauthorized_handler
 def unauthorized_handler():
     return redirect(url_for('login'))
+
+
+@app.errorhandler(404)
+def notFound(error):
+    return "<h1>Page Requested not found.</h1>"
 
 
 if __name__ == '__main__':

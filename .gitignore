@@ -6,5 +6,7 @@ marketmovers
 item_details
 get_item_details.js
 webhook/kslbackend.db
+ksl_news.txt
+latest_news.txt
 __pycache__
 sources/
