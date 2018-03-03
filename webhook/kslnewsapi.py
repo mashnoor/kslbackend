@@ -12,7 +12,7 @@ kslnews_api = Blueprint('kslnews_api', __name__)
 @kslnews_api.route('/kslnews')
 @flask_login.login_required
 def kslnews():
-    p = Path('../ksl_news.txt')
+    p = '/var/www/html/kslbackend/ksl_news.txt'
 
     with open(p) as f:
         content = f.read()
@@ -26,7 +26,7 @@ def kslnews():
 def addkslnews():
     title = request.form.get('title')
     body = request.form.get('message')
-    p = Path('../ksl_news.txt')
+    p = '/var/www/html/kslbackend/ksl_news.txt'
 
     with open(p) as f:
         content = f.read()
