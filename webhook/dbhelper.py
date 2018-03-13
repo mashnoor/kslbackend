@@ -180,9 +180,9 @@ def addClientId(masterid, clientid):
     print(clientid.clientidno)
 
 
-def deleteItsId(masterid, masterPass, itsid):
+def deleteItsId(masterid, itsid):
     session = DBSession()
-    for itsacc in session.query(Account).filter_by(masterId=masterid, masterPassword=masterPass).first().itsaccounts:
+    for itsacc in session.query(Account).filter_by(masterId=masterid).first().itsaccounts:
         if itsacc.itsNo == itsid:
             # account = session.query(Account).filter_by(masterId=masterid).first()
             session.delete(itsacc)
