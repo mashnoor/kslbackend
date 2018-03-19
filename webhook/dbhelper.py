@@ -192,6 +192,16 @@ def deleteItsId(masterid, itsid):
             print("Deleted")
 
 
+def updateItsId(masterid, itsid, itsNewPass):
+    session = DBSession()
+    for itsacc in session.query(Account).filter_by(masterId=masterid).first().itsaccounts:
+        if itsacc.itsNo == itsid:
+            # account = session.query(Account).filter_by(masterId=masterid).first()
+            itsacc.password = itsNewPass
+            session.commit()
+            return 'success'
+    return 'failed'
+
 def getMasterPassword(email, masterId):
     session = DBSession()
     return session.query(Account).filter_by(email=email, masterId=masterId).first().masterPassword
