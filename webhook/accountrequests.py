@@ -88,9 +88,8 @@ def additsaccountmobile():
 @account_request_api.route("/deleteitsaccount", methods=["POST"])
 def deleteItsAccount():
     masterid = request.form.get('masterid')
-    masterpass = request.form.get('masterpass')
     itsid = request.form.get('itsid')
-    dbhelper.deleteItsId(masterid, masterpass, itsid)
+    dbhelper.deleteItsId(masterid, itsid)
 
     return "success"
 
