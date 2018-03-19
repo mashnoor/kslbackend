@@ -46,7 +46,6 @@ def getSellMarketDepth(item):
 
     attrs = {"width": "96%", "border": "0", "align": "left", "cellpadding": "0", "cellspacing": "0"}
     table = soup.find_all("table", attrs=attrs)[1]
-    
 
     i = 0
     sell_depths = []

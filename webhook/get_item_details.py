@@ -59,7 +59,7 @@ def getItemDetail(item_name):
     daysRange = str(values[12]).replace("Day's Range", "").strip()
     print("Days Range: " + daysRange)
 
-    amount_traded_in_bdt =  str(values[13]).replace("Day's Value (mn)", "").strip()
+    amount_traded_in_bdt = str(values[13]).replace("Day's Value (mn)", "").strip()
     print("Amount traded in bdt (mn): " + amount_traded_in_bdt)
     weekRange = str(values[14]).replace("52 Weeks' Moving Range", "").strip()
     print("Week's Range: " + weekRange)
@@ -87,7 +87,8 @@ def getItemDetail(item_name):
 
     authorized_capital = basic_info_table[3].replace("Authorized Capital (mn)", "").strip()
     print("Authorized Capital: " + authorized_capital)
-    paidupvalue = basic_info_table[4].replace("Paid-up Capital (mn)", "").replace("\n", "").replace("\r", "").strip().split(" ")[0]
+    paidupvalue = \
+    basic_info_table[4].replace("Paid-up Capital (mn)", "").replace("\n", "").replace("\r", "").strip().split(" ")[0]
     print("Paid Up Value: " + paidupvalue)
 
     facevalue = basic_info_table[5].replace("Face/par Value", "").strip()

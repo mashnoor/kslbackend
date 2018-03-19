@@ -27,4 +27,3 @@ def settoken():
     masterId = request.form.get('masterid')
     dbhelper.setToken(masterId, token)
     return "success"
-

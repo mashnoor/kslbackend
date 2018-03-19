@@ -5,7 +5,6 @@ from pathlib import Path
 import flask_login
 import datetime
 
-
 kslnews_api = Blueprint('kslnews_api', __name__)
 
 

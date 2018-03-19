@@ -2,15 +2,15 @@ import json
 
 from flask import Blueprint, request
 
-
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 
 previous_day_end_data_api = Blueprint('previous_day_end_data', __name__)
 
+
 def process(data):
-    #sorted(data, key=functools.cmp_to_key(customSort))
+    # sorted(data, key=functools.cmp_to_key(customSort))
     new_datas = []
     startDate = datetime.strptime(data[-1]["date"], '%Y-%m-%d').date()
     for d in data:

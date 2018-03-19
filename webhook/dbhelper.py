@@ -152,9 +152,11 @@ def isValiedMasterId(masterid, masterpassword):
     session = DBSession()
     return session.query(Account).filter_by(masterId=masterid, masterPassword=masterpassword).scalar() is not None
 
+
 def getMasterAccount(masterid, masterpassword):
     session = DBSession()
     return session.query(Account).filter_by(masterId=masterid, masterPassword=masterpassword).first()
+
 
 def getNotifications(masterid):
     session = DBSession()
@@ -211,4 +213,3 @@ acc.itsaccounts.append(itsacc)
 saveAccount(acc)
 
 '''
-
