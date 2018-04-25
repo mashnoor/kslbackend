@@ -3,9 +3,9 @@ from bs4 import BeautifulSoup
 
 url = "https://bangladeshstockmarket.com/LoadBalance.do"
 
-statusUrl = "https://bangladeshstockmarket.com/TradeBook.do"
+statusUrl = "https://bangladeshstockmarket.com/TradeBookView.do"
 
-verifyPassword = "https://bangladeshstockmarket.com/PasswordCheck.do"
+verifyPassword = "https://bangladeshstockmarket.com/ViewOrder.do"
 
 
 def status(loginid, password, startdate, enddate):
