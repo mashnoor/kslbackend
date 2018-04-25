@@ -119,3 +119,12 @@ def getClientIDsMobile():
         ids.append(id.clientidno)
 
     return json.dumps(ids)
+
+
+@account_request_api.route("/updateitspassword", methods=["POST"])
+def updateItsAccount():
+    masterid = request.form.get('masterid')
+    itsid = request.form.get('itsid')
+    itspass = request.form.get('newitspass')
+    return dbhelper.updateItsId(masterid, itsid, itspass)
+

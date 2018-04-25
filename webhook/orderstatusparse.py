@@ -19,7 +19,7 @@ def getorderstatus():
 
     soup = BeautifulSoup(statushtml, 'html.parser')
 
-    table_attrs = {"id": "table1", "style": "width:100%", "class": "tableheading"}
+    table_attrs = {"id": "searchtable", "style": "width:100% ;valign=top", "class": "tableheading"}
 
     orders = []
     keys = ["symbol", "boardtype", "scripgroup", "orderno", "settlor", "exch",

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+
+{% block content %}
+    <h1>IPO</h1>
+
+    <form action="{{ url_for('ipo_api.updateipo') }}" method="post">
+
+        <div class="form-group">
+            <textarea name="ipo" class="form-control" text rows="7" placeholder="Enter IPO"
+                      required>{{ ipo }}</textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Update IPO">
+        </div>
+
+    </form>
+
+{% endblock %}

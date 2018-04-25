@@ -16,6 +16,7 @@ from recoverpassword import recoverpassword_api
 from loginapi import login_api
 import flask_login
 from kslnewsapi import kslnews_api
+from ipoapi import ipo_api
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -34,6 +35,7 @@ app.register_blueprint(get_item_news_api)
 app.register_blueprint(recoverpassword_api)
 app.register_blueprint(login_api)
 app.register_blueprint(kslnews_api)
+app.register_blueprint(ipo_api)
 
 app.secret_key = 'ksl onek joss'
 

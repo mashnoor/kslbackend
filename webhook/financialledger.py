@@ -12,10 +12,7 @@ def getFinancialLedgers():
     client_id = request.form.get('client_id')
     from_date = request.form.get('from_date')
     to_date = request.form.get('to_date')
-    vals = {}
-    vals['from_date'] = from_date
-    vals['to_date'] = to_date
-    vals['client_id'] = client_id
+    vals = {'from_date': from_date, 'to_date': to_date, 'client_id': client_id}
     print(vals)
     r = requests.get(url + json.dumps(vals))
     print(r.content)

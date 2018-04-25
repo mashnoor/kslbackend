@@ -152,9 +152,11 @@ def isValiedMasterId(masterid, masterpassword):
     session = DBSession()
     return session.query(Account).filter_by(masterId=masterid, masterPassword=masterpassword).scalar() is not None
 
+
 def getMasterAccount(masterid, masterpassword):
     session = DBSession()
     return session.query(Account).filter_by(masterId=masterid, masterPassword=masterpassword).first()
+
 
 def getNotifications(masterid):
     session = DBSession()
@@ -190,6 +192,16 @@ def deleteItsId(masterid, itsid):
             print("Deleted")
 
 
+def updateItsId(masterid, itsid, itsNewPass):
+    session = DBSession()
+    for itsacc in session.query(Account).filter_by(masterId=masterid).first().itsaccounts:
+        if itsacc.itsNo == itsid:
+            # account = session.query(Account).filter_by(masterId=masterid).first()
+            itsacc.password = itsNewPass
+            session.commit()
+            return 'success'
+    return 'failed'
+
 def getMasterPassword(email, masterId):
     session = DBSession()
     return session.query(Account).filter_by(email=email, masterId=masterId).first().masterPassword
@@ -211,4 +223,3 @@ acc.itsaccounts.append(itsacc)
 saveAccount(acc)
 
 '''
-
