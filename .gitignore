@@ -10,3 +10,4 @@ ksl_news.txt
 latest_news.txt
 __pycache__
 sources/
+venv/

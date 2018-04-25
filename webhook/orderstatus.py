@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 url = "https://bangladeshstockmarket.com/LoadBalance.do"
 
-statusUrl = "https://bangladeshstockmarket.com/ViewOrder.do"
+statusUrl = "https://bangladeshstockmarket.com/TradeBook.do"
 
 verifyPassword = "https://bangladeshstockmarket.com/PasswordCheck.do"
 
@@ -49,4 +49,5 @@ def status(loginid, password, startdate, enddate):
         if (r.text == "NOTOK"):
             return "Login Failed"
         r = s.post(statusUrl, data=d)
+        print(r.text)
         return r.text
