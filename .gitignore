@@ -12,3 +12,4 @@ top_gainers.txt
 top_losers.txt
 __pycache__
 sources/
+venv/
