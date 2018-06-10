@@ -23,13 +23,13 @@ def process(data):
 
 @previous_day_end_data_api.route('/getdayenddata', methods=['POST'])
 def getJsonofDayEnd():
-    fromYear = str(request.form.get('fromyear')).strip()
-    fromMonth = str(request.form.get('frommonth')).strip()
-    fromDay = str(request.form.get('fromday')).strip()
-    toYear = str(request.form.get('toyear')).strip()
-    toMonth = str(request.form.get('tomonth')).strip()
-    toDay = str(request.form.get('todays')).strip()
-    company = str(request.form.get('company')).strip()
+    fromYear = request.form.get('fromyear')
+    fromMonth = request.form.get('frommonth')
+    fromDay = request.form.get('fromday')
+    toYear = request.form.get('toyear')
+    toMonth = request.form.get('tomonth')
+    toDay = request.form.get('todays')
+    company = request.form.get('company')
     day_end_archive_url = "https://www.dse.com.bd/day_end_archive.php"
 
     attrs = {"DayEndSumDate1": fromYear + "-" + fromMonth + "-" + fromDay,
