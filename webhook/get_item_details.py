@@ -10,7 +10,7 @@ get_item_detail_api = Blueprint('get_item_details_api', __name__)
 
 
 def get_url(item_name):
-    base_url = "http://www.dsebd.org/displayCompany.php?name="
+    base_url = "https://www.dsebd.org/displayCompany.php?name="
     return base_url + item_name
 
 

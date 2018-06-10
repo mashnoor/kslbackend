@@ -4,7 +4,7 @@ from flask import Blueprint
 
 get_item_news_api = Blueprint('get_item_news_api', __name__)
 
-url = "http://www.dsebd.org/old_news.php"
+url = "https://www.dsebd.org/old_news.php"
 
 
 @get_item_news_api.route('/getitemnews/<company_name>')

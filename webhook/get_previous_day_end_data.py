@@ -23,14 +23,15 @@ def process(data):
 
 @previous_day_end_data_api.route('/getdayenddata', methods=['POST'])
 def getJsonofDayEnd():
-    fromYear = request.form.get('fromyear')
-    fromMonth = request.form.get('frommonth')
-    fromDay = request.form.get('fromday')
-    toYear = request.form.get('toyear')
-    toMonth = request.form.get('tomonth')
-    toDay = request.form.get('todays')
-    company = request.form.get('company')
-    day_end_archive_url = "http://www.dse.com.bd/day_end_archive.php"
+    fromYear = str(request.form.get('fromyear')).strip()
+    fromMonth = str(request.form.get('frommonth')).strip()
+    fromDay = str(request.form.get('fromday')).strip()
+    toYear = str(request.form.get('toyear')).strip()
+    toMonth = str(request.form.get('tomonth')).strip()
+    toDay = str(request.form.get('todays')).strip()
+    company = str(request.form.get('company')).strip()
+    day_end_archive_url = "https://www.dse.com.bd/day_end_archive.php"
+
     attrs = {"DayEndSumDate1": fromYear + "-" + fromMonth + "-" + fromDay,
              "DayEndSumDate1_dp": "1",
              "DayEndSumDate1_year_start": "2016",
@@ -91,7 +92,9 @@ def getJsonofDayEnd():
              "DayEndSumDate2_year": toYear,
              "Symbol": company,
              "ViewDayEndArchive": "View Day End Archive"}
+
     r = requests.post(day_end_archive_url, attrs)
+    print(r.text)
     soup = BeautifulSoup(r.text, "html.parser")
     table = soup.find("table",
                       attrs={"border": "0", "bgcolor": "#808000", "cellspacing": "1"})
