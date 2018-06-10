@@ -94,7 +94,7 @@ def getJsonofDayEnd():
              "ViewDayEndArchive": "View Day End Archive"}
 
     r = requests.post(day_end_archive_url, attrs)
-    print(r.text)
+
     soup = BeautifulSoup(r.text, "html.parser")
     table = soup.find("table",
                       attrs={"border": "0", "bgcolor": "#808000", "cellspacing": "1"})
