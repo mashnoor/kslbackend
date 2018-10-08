@@ -1,56 +1,58 @@
 import requests, json
 from bs4 import BeautifulSoup
 
-url = "http://www.cse.com.bd/market_movers.php"
+url = "https://www.cse.com.bd"
 
-r = requests.get(url)
+r = requests.get(url, verify=False)
 
-soup = BeautifulSoup(r.content, 'lxml')
-
-table_attrs = {"id":"report", "width":"100%", "border":"0", "cellpadding":"0", "cellspacing":"0", "bgcolor":"#355DA2"}
-
-tables = soup.find_all("table", table_attrs)
-
-########### Volume ##########
-top_twenty_by_volume = []
-for tr in tables[0].find_all('tr'):
-    td = tr.find_all('td')
-    curr_item = {}
-    curr_item['item'] = td[1].get_text().strip()
-    curr_item['ltp'] = td[2].get_text().strip()
-    curr_item['volume'] = td[9].get_text().strip()
-    top_twenty_by_volume.append(curr_item)
-
-del(top_twenty_by_volume[0])
-with open('marketmovers/top_twenty_by_volume.txt', 'w') as f:
-    f.write(json.dumps(top_twenty_by_volume))
-
+soup = BeautifulSoup(r.content, 'html5lib')
 
 ########## Value #############
+div_attr = {"class": "mover_tap_content "}
+top_mover_by_value_div = soup.find("div", div_attr)
 top_twenty_by_value = []
-for tr in tables[1].find_all('tr'):
-    td = tr.find_all('td')
+for div in top_mover_by_value_div.find_all('div', {'class': "immover_MIrow1"}):
+    inner_divs = div.find_all('div')
     curr_item = {}
-    curr_item['item'] = td[1].get_text().strip()
-    curr_item['ltp'] = td[2].get_text().strip()
-    curr_item['value'] = td[7].get_text().strip()
+    curr_item['item'] = inner_divs[0].get_text().strip()
+    curr_item['ltp'] = inner_divs[1].get_text().strip()
+    curr_item['value'] = inner_divs[4].get_text().strip()
     top_twenty_by_value.append(curr_item)
 
-del(top_twenty_by_value[0])
+
+
 with open('marketmovers/top_twenty_by_value.txt', 'w') as f:
     f.write(json.dumps(top_twenty_by_value))
 
+########### Volume ##########
+div_attr = {"class": "mover_tap_content"}
+top_mover_by_volume_div = soup.find_all("div", div_attr)[1]
+top_twenty_by_volume = []
+for div in top_mover_by_volume_div.find_all('div', {'class': "immover_MIrow1"}):
+    inner_divs = div.find_all('div')
+    curr_item = {}
+    curr_item['item'] = inner_divs[0].get_text().strip()
+    curr_item['ltp'] = inner_divs[1].get_text().strip()
+    curr_item['volume'] = inner_divs[4].get_text().strip()
+    top_twenty_by_volume.append(curr_item)
+
+
+
+with open('marketmovers/top_twenty_by_volume.txt', 'w') as f:
+    f.write(json.dumps(top_twenty_by_volume))
 
 ############## Trade ##############
+div_attr = {"class": "mover_tap_content"}
+top_mover_by_trade_div = soup.find_all("div", div_attr)[2]
 top_twenty_by_trade = []
-for tr in tables[2].find_all('tr'):
-    td = tr.find_all('td')
+for div in top_mover_by_trade_div.find_all('div', {'class': "immover_MIrow1"}):
+    inner_divs = div.find_all('div')
     curr_item = {}
-    curr_item['item'] = td[1].get_text().strip()
-    curr_item['ltp'] = td[2].get_text().strip()
-    curr_item['trade'] = td[8].get_text().strip()
+    curr_item['item'] = inner_divs[0].get_text().strip()
+    curr_item['ltp'] = inner_divs[1].get_text().strip()
+    curr_item['trade'] = inner_divs[4].get_text().strip()
     top_twenty_by_trade.append(curr_item)
 
-del(top_twenty_by_trade[0])
+
 with open('marketmovers/top_twenty_by_trade.txt', 'w') as f:
     f.write(json.dumps(top_twenty_by_trade))

@@ -3,30 +3,31 @@ from bs4 import BeautifulSoup
 import re
 import datetime
 
-url = "http://cse.com.bd/news_details.php"
+url = "https://www.cse.com.bd/media/news"
 
-r = requests.get(url)
+r = requests.get(url, verify=False)
 
-soup = BeautifulSoup(r.content, 'lxml')
-news_table_attrs = {"id":"report", "width":"100%", "border":"0", "cellspacing":"0", "cellpadding":"0"}
-news_table = soup.find("table", news_table_attrs)
+soup = BeautifulSoup(r.content, 'html5lib')
+news_div_attrs = {"class": "news_content"}
+news_divs = soup.find_all("div", news_div_attrs)
 
-news_list = soup.find_all("tr",re.compile("TZRow"))
 
 
 all_news = []
-for news in news_list:
-   try:
+for news in news_divs:
+    try:
 
-       title = news.find("b").get_text().strip()
-       body = news.get_text().replace(title, "").strip()
-       curr_news = {}
-       curr_news["title"] = title
-       curr_news["body"] = body
-       curr_news['date'] = datetime.datetime.today().strftime('%Y-%m-%d')
-       all_news.append(curr_news)
-   except:
-       pass
+        all_paragraphs = news.find_all("p")
+        first_p = all_paragraphs[0]
+        second_p = all_paragraphs[1]
 
+        curr_news = {}
+        curr_news["title"] = str(first_p.text).split(":")[1].strip()
+        curr_news["body"] = str(second_p.text).strip()
+        curr_news['date'] = str(first_p.text).split(":")[0].strip()
+        all_news.append(curr_news)
+    except:
+        pass
+print(all_news)
 with open("latest_news.txt", "w") as f:
     f.write(json.dumps(all_news))

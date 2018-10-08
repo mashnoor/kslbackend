@@ -53,7 +53,7 @@ inner_divs = csi_div.find_all('div', inner_div_attrs)
 csi_values['csivalue'] = inner_divs[0].get_text().strip()
 csi_values['csichange'] = inner_divs[1].get_text().strip()
 all_idexes.update(csi_values)
-print(all_idexes)
+
 ########### GET Market Summary ##############
 market_summary_div_attrs = {"class": "value1"}
 market_summary_divs = soup.find_all("div", market_summary_div_attrs)
@@ -67,7 +67,7 @@ for value_div in market_summary_divs:
 
 market_summary_values = dict(zip(market_summary_field_names, market_summary_values))
 
-print(market_summary_values)
+
 
 ## Write The Index Values
 with open("homedatas/all_indexes.txt", "w") as f:

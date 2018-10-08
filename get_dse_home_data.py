@@ -8,7 +8,7 @@ res_str = str(response.text)
 
 # print source
 
-soup = BeautifulSoup(res_str, 'lxml')
+soup = BeautifulSoup(res_str, 'html5lib')
 alldivs = soup.find_all('div', attrs={'class': 'midrow'})
 
 result = {}
