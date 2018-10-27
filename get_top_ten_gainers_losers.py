@@ -1,46 +1,48 @@
 from bs4 import BeautifulSoup
 import requests, json
 
-top_ten_gainer_url = "http://www.dse.com.bd/top_ten_gainer.php"
-top_ten_losers_url = "http://www.dse.com.bd/top_ten_loser.php"
+url = "https://www.cse.com.bd"
 
-r = requests.get(top_ten_gainer_url)
-soup = BeautifulSoup(r.content, "html.parser")
+r = requests.get(url, verify=False)
+soup = BeautifulSoup(r.content, "html5lib")
 
-table = soup.find("table",
-                  attrs={"border": "0", "cellpadding": "3", "width": "100%", "bgcolor": "#808000", "cellspacing": "1"})
+divs = soup.find_all('div', {'class': 'tap_content'})
+########## TOP GAINERS ##########
+top_gainer_div = divs[0]
 top_gainers = []
-for tr in table.find_all("tr"):
+for item in top_gainer_div.find_all('div', {'class': 'MIrow1'}):
     curr_gainer = {}
-    td = tr.find_all("td")
-    curr_gainer["item"] = str(td[1].text).replace("\r\n", "").strip()
-    curr_gainer["closeprice"] = str(td[2].text).replace("\r\n", "").strip()
-    curr_gainer["high"] = str(td[3].text).replace("\r\n", "").strip()
-    curr_gainer["low"] = str(td[4].text).replace("\r\n", "").strip()
-    curr_gainer["ycp"] = str(td[5].text).replace("\r\n", "").strip()
-    curr_gainer["changeval"] = str(td[6].text).replace("\r\n", "").strip()
+    inner_divs = item.find_all('div')
+
+    curr_gainer["item"] = inner_divs[0].text
+    curr_gainer["closeprice"] = "0"
+    curr_gainer["high"] = "0"
+    curr_gainer["low"] = "0"
+    curr_gainer["ycp"] = "0"
+    curr_gainer["ltp"] = inner_divs[1].text
+    curr_gainer["changeval"] = inner_divs[2].text
+    curr_gainer["changepercentage"] = inner_divs[3].text
     top_gainers.append(curr_gainer)
-del top_gainers[0]
+print(top_gainers)
+
 with open("top_gainers.txt", "w") as f:
     f.write(json.dumps(top_gainers))
 
-r = requests.get(top_ten_losers_url)
-soup = BeautifulSoup(r.content, "html.parser")
-
-table = soup.find("table",
-                  attrs={"border": "0", "cellpadding": "3", "width": "100%", "bgcolor": "#808000", "cellspacing": "1"})
+############ TOP LOSERS ##############
+top_losers_div = divs[1]
 top_losers = []
-for tr in table.find_all("tr"):
+for item in top_losers_div.find_all('div', {'class': 'MIrow1'}):
     curr_loser = {}
-    td = tr.find_all("td")
-    curr_loser["item"] = str(td[1].text).replace("\r\n", "").strip()
-    curr_loser["closeprice"] = str(td[2].text).replace("\r\n", "").strip()
-    curr_loser["high"] = str(td[3].text).replace("\r\n", "").strip()
-    curr_loser["low"] = str(td[4].text).replace("\r\n", "").strip()
-    curr_loser["ycp"] = str(td[5].text).replace("\r\n", "").strip()
-    curr_loser["changeval"] = str(td[6].text).replace("\r\n", "").strip()
+    inner_divs = item.find_all('div')
+    curr_loser["item"] = inner_divs[0].text
+    curr_loser["closeprice"] = "0"
+    curr_loser["high"] = "0"
+    curr_loser["low"] = "0"
+    curr_loser["ycp"] = "0"
+    curr_loser["ltp"] = inner_divs[1].text
+    curr_loser["changeval"] = inner_divs[2].text
     top_losers.append(curr_loser)
 
-del top_losers[0]
+print(top_losers)
 with open("top_losers.txt", "w") as f:
     f.write(json.dumps(top_losers))
