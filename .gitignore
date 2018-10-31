@@ -13,3 +13,6 @@ top_losers.txt
 __pycache__
 sources/
 venv/
+latest_news.txt
+top_gainers.txt
+top_losers.txt
