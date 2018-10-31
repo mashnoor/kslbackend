@@ -1,1 +1,1 @@
-[{"item": "BPML", "ltp": "116.80", "trade": "407"}, {"item": "ACFL", "ltp": "58.00", "trade": "385"}, {"item": "INTECH", "ltp": "52.60", "trade": "346"}, {"item": "APOLOISPAT", "ltp": "10.10", "trade": "335"}, {"item": "BEXIMCO", "ltp": "24.20", "trade": "306"}]
+[{"item": "SILVAPHL", "ltp": "27.30", "trade": "498"}, {"item": "INTRACO", "ltp": "31.00", "trade": "430"}, {"item": "SKTRIMS", "ltp": "35.60", "trade": "331"}, {"item": "KPCL", "ltp": "114.30", "trade": "330"}, {"item": "IBP", "ltp": "32.80", "trade": "285"}]

@@ -9,56 +9,48 @@ from datetime import datetime
 market_depth_api = Blueprint('market_depth_api', __name__)
 
 
-@market_depth_api.route('/getbuymarketdepth/<item>')
+@market_depth_api.route('/getmarketdepth/<item>')
 def getBuyMarketDepth(item):
-    url = "http://www.cse.com.bd/depth_show.php?w=" + item + "&sid=0.6294890369546924"
+    url = "https://www.cse.com.bd/market/market_depth/" + item
 
-    r = requests.get(url)
+    r = requests.get(url, verify=False)
     soup = BeautifulSoup(r.text, "html.parser")
 
-    attrs = {"width": "96%", "border": "0", "align": "left", "cellpadding": "0", "cellspacing": "0",
-             "bgcolor": "#E8FFFB"}
-    table = soup.find_all("table", attrs=attrs)[0]
+    attrs = {"class": "bodycol_6 aci_header"}
+    all_divs = soup.find_all("div", attrs=attrs)
 
-    i = 0
-    buy_depths = []
-    for tr in table.find_all("tr"):
-        if i < 2:
-            i += 1
+    buy_price_divs = all_divs[0]
+    buy_volume_divs = all_divs[1]
+    sell_price_divs = all_divs[2]
+    sell_volume_divs = all_divs[3]
+
+    buy_prices_depth = []
+    sell_prices_depth = []
+
+    buy_price_divs = buy_price_divs.find_all('div')
+    buy_volume_divs = buy_volume_divs.find_all('div')
+    sell_price_divs = sell_price_divs.find_all('div')
+    sell_volume_divs = sell_volume_divs.find_all('div')
+    for i in range(len(buy_price_divs)):
+        curr_depth = dict()
+        if str(buy_price_divs[i].text).strip() == "Buy Price":
             continue
+        curr_depth['price'] = str(buy_price_divs[i].text).strip()
+        curr_depth['volume'] = str(buy_volume_divs[i].text).strip()
+        buy_prices_depth.append(curr_depth)
 
-        # print(tr)
-        td = tr.find_all("td")
-        curr_depth = {}
-        curr_depth['price'] = str(td[0].text).strip()
-        curr_depth['volume'] = str(td[2].text).strip()
-        buy_depths.append(curr_depth)
-
-    return json.dumps(buy_depths)
-
-
-@market_depth_api.route('/getsellmarketdepth/<item>')
-def getSellMarketDepth(item):
-    url = "http://www.cse.com.bd/depth_show.php?w=" + item + "&sid=0.6294890369546924"
-
-    r = requests.get(url)
-    soup = BeautifulSoup(r.text, "html.parser")
-
-    attrs = {"width": "96%", "border": "0", "align": "left", "cellpadding": "0", "cellspacing": "0"}
-    table = soup.find_all("table", attrs=attrs)[1]
-
-    i = 0
-    sell_depths = []
-    for tr in table.find_all("tr"):
-        if i < 2:
-            i += 1
+    for i in range(len(sell_price_divs)):
+        curr_depth = dict()
+        if str(sell_price_divs[i].text).strip() == "Sell Price":
             continue
+        curr_depth['price'] = str(sell_price_divs[i].text).strip()
+        curr_depth['volume'] = str(sell_volume_divs[i].text).strip()
+        sell_prices_depth.append(curr_depth)
 
-        # print(tr)
-        td = tr.find_all("td")
-        curr_depth = {}
-        curr_depth['price'] = str(td[0].text).strip()
-        curr_depth['volume'] = str(td[2].text).strip()
-        sell_depths.append(curr_depth)
+        final_depth = dict()
+        #del (buy_prices_depth[0]
+        #del sell_prices_depth[0]
+        final_depth['buy'] = buy_prices_depth
+        final_depth['sell'] = sell_prices_depth
 
-    return json.dumps(sell_depths)
+    return json.dumps(final_depth)
