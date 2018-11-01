@@ -11,6 +11,7 @@ market_depth_api = Blueprint('market_depth_api', __name__)
 
 @market_depth_api.route('/getmarketdepth/<item>')
 def getBuyMarketDepth(item):
+    final_depth = dict()
     url = "https://www.cse.com.bd/market/market_depth/" + item
 
     r = requests.get(url, verify=False)
@@ -47,7 +48,7 @@ def getBuyMarketDepth(item):
         curr_depth['volume'] = str(sell_volume_divs[i].text).strip()
         sell_prices_depth.append(curr_depth)
 
-        final_depth = dict()
+
         #del (buy_prices_depth[0]
         #del sell_prices_depth[0]
         final_depth['buy'] = buy_prices_depth
