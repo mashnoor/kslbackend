@@ -49,5 +49,5 @@ def status(loginid, password, startdate, enddate):
         if (r.text == "NOTOK"):
             return "Login Failed"
         r = s.post(statusUrl, data=d)
-        print(r.text)
+
         return r.text
