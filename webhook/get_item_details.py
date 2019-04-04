@@ -18,7 +18,7 @@ def get_url(item_name):
 def getItemDetail(item_name):
     final_result = {}
 
-    r = requests.get(get_url(item_name))
+    r = requests.get(get_url(item_name), verify=False)
 
     soup = BeautifulSoup(str(r.text).encode('ascii', 'ignore').decode('ascii'), "html.parser")
 
