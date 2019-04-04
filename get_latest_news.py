@@ -7,7 +7,7 @@ url = "https://www.cse.com.bd/media/news"
 
 r = requests.get(url, verify=False)
 
-soup = BeautifulSoup(r.content, 'html5lib')
+soup = BeautifulSoup(r.content, 'html.parser')
 news_div_attrs = {"class": "news_content"}
 news_divs = soup.find_all("div", news_div_attrs)
 

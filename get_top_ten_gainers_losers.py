@@ -4,7 +4,7 @@ import requests, json
 url = "https://www.cse.com.bd"
 
 r = requests.get(url, verify=False)
-soup = BeautifulSoup(r.content, "html5lib")
+soup = BeautifulSoup(r.content, "html.parser")
 
 divs = soup.find_all('div', {'class': 'tap_content'})
 ########## TOP GAINERS ##########

@@ -6,7 +6,7 @@ url = "https://www.cse.com.bd"
 
 r = requests.get(url, verify=False)
 
-soup = BeautifulSoup(r.content, 'html5lib')
+soup = BeautifulSoup(r.content, 'html.parser')
 
 ############## INDEXES ##############
 div_attrs = {"id": "mitabs-1"}

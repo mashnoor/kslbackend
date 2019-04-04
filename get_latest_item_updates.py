@@ -5,11 +5,12 @@ url = "https://www.cse.com.bd/market/current_price"
 
 r = requests.get(url, verify=False)
 
-soup = BeautifulSoup(r.content, 'html5lib')
+soup = BeautifulSoup(r.content, 'html.parser')
 
 div_attrs = {"class": "market_tabs_cont"}
 
 all_item_divs = soup.find_all("div", div_attrs)
+print(all_item_divs)
 all_items = []
 for item in all_item_divs:
     inner_divs = item.find_all('div')
