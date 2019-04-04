@@ -93,7 +93,7 @@ def getJsonofDayEnd():
              "Symbol": company,
              "ViewDayEndArchive": "View Day End Archive"}
 
-    r = requests.post(day_end_archive_url, attrs)
+    r = requests.post(day_end_archive_url, attrs, verify=False)
 
     soup = BeautifulSoup(r.text, "html.parser")
     table = soup.find("table",
