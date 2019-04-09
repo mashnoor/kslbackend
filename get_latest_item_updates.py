@@ -7,18 +7,18 @@ r = requests.get(url, verify=False)
 
 soup = BeautifulSoup(r.content, 'html.parser')
 
-div_attrs = {"class": "market_tabs_cont"}
 
-all_item_divs = soup.find_all("div", div_attrs)
-print(all_item_divs)
+
+all_items_table = soup.find("tbody")
+print(all_items_table)
 all_items = []
-for item in all_item_divs:
-    inner_divs = item.find_all('div')
+for item in all_items_table.find_all("tr"):
+    inner_data = item.find_all('td')
     curr_item = {}
-    curr_item['item'] = inner_divs[1].get_text().strip()
-    curr_item['ltp'] = inner_divs[2].get_text().strip()
-    curr_item['changeval'] = inner_divs[7].get_text().strip()
-    curr_item['volume'] = inner_divs[9].get_text().strip()
+    curr_item['item'] = inner_data[1].get_text().strip()
+    curr_item['ltp'] = inner_data[2].get_text().strip()
+    curr_item['changeval'] = inner_data[8].get_text().strip()
+    curr_item['volume'] = inner_data[9].get_text().strip()
     all_items.append(curr_item)
 
 
