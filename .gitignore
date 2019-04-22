@@ -16,3 +16,5 @@ venv/
 latest_news.txt
 top_gainers.txt
 top_losers.txt
+homedatas/market_summary.txt
+homedatas/all_indexes.txt

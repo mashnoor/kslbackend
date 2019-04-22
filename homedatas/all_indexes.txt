@@ -1,1 +1,1 @@
-{"cse50value": "1196.0033", "cse50change": "-0.3894", "cse30value": "14499.7233", "cse30change": "-0.7088", "cscxvalue": "9816.1079", "cscxchange": "-0.2353", "caspivalue": "16191.6538", "caspichange": "-0.2214", "csivalue": "1077.3373", "csichange": "-0.5635"}
+{"cse50value": "1183.5700", "cse50change": "-0.0739", "cse30value": "14294.4929", "cse30change": "0.1983", "cscxvalue": "9845.5574", "cscxchange": "0.0267", "caspivalue": "16269.8280", "caspichange": "0.0300", "csivalue": "1076.3936", "csichange": "0.1858"}
