@@ -202,6 +202,7 @@ def updateItsId(masterid, itsid, itsNewPass):
             return 'success'
     return 'failed'
 
+
 def getMasterPassword(email, masterId):
     session = DBSession()
     return session.query(Account).filter_by(email=email, masterId=masterId).first().masterPassword

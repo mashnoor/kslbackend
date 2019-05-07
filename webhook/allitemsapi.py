@@ -11,7 +11,7 @@ allitems_api = Blueprint('allitems_api', __name__)
 @allitems_api.route('/kslnews')
 @flask_login.login_required
 def kslnews():
-    #p = '/var/www/html/kslbackend/ksl_news.txt'
+    # p = '/var/www/html/kslbackend/ksl_news.txt'
     p = Path('../allitems.txt')
     with open(p) as f:
         content = f.read()
@@ -23,7 +23,7 @@ def kslnews():
 @allitems_api.route('/addkslnews', methods=['POST'])
 def addkslnews():
     company = request.form.get('item')
-    #p = '/var/www/html/kslbackend/ksl_news.txt'
+    # p = '/var/www/html/kslbackend/ksl_news.txt'
     p = Path('../allitems.txt')
     with open(p) as f:
         content = f.read()

@@ -48,9 +48,8 @@ def getBuyMarketDepth(item):
         curr_depth['volume'] = str(sell_volume_divs[i].text).strip()
         sell_prices_depth.append(curr_depth)
 
-
-        #del (buy_prices_depth[0]
-        #del sell_prices_depth[0]
+        # del (buy_prices_depth[0]
+        # del sell_prices_depth[0]
         final_depth['buy'] = buy_prices_depth
         final_depth['sell'] = sell_prices_depth
 

@@ -127,4 +127,3 @@ def updateItsAccount():
     itsid = request.form.get('itsid')
     itspass = request.form.get('newitspass')
     return dbhelper.updateItsId(masterid, itsid, itspass)
-

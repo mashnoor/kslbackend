@@ -12,7 +12,7 @@ ipo_api = Blueprint('ipo_api', __name__)
 @flask_login.login_required
 def ipo():
     p = '/var/www/html/mash/kslbackend/ipo.txt'
-    #p = Path('../ipo.txt')
+    # p = Path('../ipo.txt')
     with open(p) as f:
         content = f.read()
 

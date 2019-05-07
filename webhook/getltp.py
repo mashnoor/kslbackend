@@ -1,7 +1,6 @@
 import pandas as pd
 from trade import buy_item
 
-
 from flask import Flask, request, Blueprint
 
 url = "http://www.cse.com.bd"

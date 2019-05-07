@@ -84,11 +84,11 @@ def getItemDetail(item_name):
         pass
     # print str(values_second_table[2])
 
-
     authorized_capital = basic_info_table[3].replace("Authorized Capital (mn)", "").strip()
     print("Authorized Capital: " + authorized_capital)
     paidupvalue = \
-    basic_info_table[4].replace("Paid-up Capital (mn)", "").replace("\n", "").replace("\r", "").strip().split(" ")[0]
+        basic_info_table[4].replace("Paid-up Capital (mn)", "").replace("\n", "").replace("\r", "").strip().split(" ")[
+            0]
     print("Paid Up Value: " + paidupvalue)
 
     facevalue = basic_info_table[5].replace("Face/par Value", "").strip()
@@ -102,9 +102,6 @@ def getItemDetail(item_name):
     print("Segment: " + segment)
 
     ############### END OF BASIC INFORMATION ############
-
-
-
 
     ################ P/E Ratio ######################
 
@@ -183,7 +180,6 @@ def getItemDetail(item_name):
     '''
     #################### HISTORY AND OTHERS #########################
 
-
     history_table = market_info_tables[2]
 
     values = []
@@ -206,7 +202,6 @@ def getItemDetail(item_name):
     print("Reserve and surplus: " + reserveandsurplus)
 
     ################## SHARE PERCENTAGE ####################
-
 
     sp_table = market_info_tables[8]
 
