@@ -1,1 +1,1 @@
-{"issues_traded": "239", "volume": "8,711,134", "issued_capital": "670,020,834,930", "value_in_taka": "204,252,276", "contract_number": "9598", "closing_market_capitalization": "3,133,495,818,805"}
+{"issues_traded": "232", "volume": "18,562,710", "issued_capital": "691,858,077,820", "value_in_taka": "489,133,333", "contract_number": "6099", "closing_market_capitalization": "3,252,933,154,867", "date": "Monday, 22 Apr '19"}

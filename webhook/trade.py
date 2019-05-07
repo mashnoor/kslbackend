@@ -20,6 +20,8 @@ def buy_item():
     qty = request.form.get('qty')
     price = request.form.get('price')
     verb = request.form.get('verb')
+    print(loginid)
+    print(password)
     d = {'loginid': loginid, 'password': password, 'lang1': 'default'}
     order1_data = {'spdBuySymbol': '', 'spdSellSymbol': '', 'submitbutton': 'Submit', 'exchange': 'CTG',
                    'selectProduct': 'EQUITY', 'segment': 'DELIVERY', 'symbol': symbol, 'buysell': verb,

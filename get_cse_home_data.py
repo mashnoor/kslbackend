@@ -68,6 +68,9 @@ for value_div in market_summary_divs:
 market_summary_values = dict(zip(market_summary_field_names, market_summary_values))
 
 
+#Datemarket_status
+d = str(soup.find("div", {"class" : "market_status"}).find_all("div")[1].text).strip()
+market_summary_values['date'] = d
 
 ## Write The Index Values
 with open("homedatas/all_indexes.txt", "w") as f:
