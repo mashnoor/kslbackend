@@ -18,3 +18,8 @@ top_gainers.txt
 top_losers.txt
 homedatas/market_summary.txt
 homedatas/all_indexes.txt
+homedatas/dse_data.txt
+marketmovers/top_twenty_by_trade.txt
+marketmovers/top_twenty_by_value.txt
+marketmovers/top_twenty_by_volume.txt
+all_items_latest_update.txt

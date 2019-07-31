@@ -1,1 +1,1 @@
-[{"item": "SILVAPHL", "ltp": "27.30", "trade": "498"}, {"item": "INTRACO", "ltp": "31.00", "trade": "430"}, {"item": "SKTRIMS", "ltp": "35.60", "trade": "331"}, {"item": "KPCL", "ltp": "114.30", "trade": "330"}, {"item": "IBP", "ltp": "32.80", "trade": "285"}]
+[{"item": "SEAPEARL", "ltp": "31.00", "trade": "370"}, {"item": "MONNOCERA", "ltp": "196.60", "trade": "352"}, {"item": "LEGACYFOOT", "ltp": "126.00", "trade": "263"}, {"item": "BSC", "ltp": "58.40", "trade": "226"}, {"item": "BATBC", "ltp": "1244.00", "trade": "207"}]

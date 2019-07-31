@@ -1,1 +1,1 @@
-[{"item": "GENNEXT", "ltp": "6.90", "volume": "729405"}, {"item": "FAMILYTEX", "ltp": "5.20", "volume": "517286"}, {"item": "SUMITPOWER", "ltp": "43.50", "volume": "388525"}, {"item": "FASFIN", "ltp": "12.70", "volume": "382600"}, {"item": "BEXIMCO", "ltp": "24.50", "volume": "347089"}]
+[{"item": "IFIC", "ltp": "10.00", "volume": "348042"}, {"item": "SEAPEARL", "ltp": "31.00", "volume": "327398"}, {"item": "PREMIERBAN", "ltp": "11.30", "volume": "268129"}, {"item": "1JANATAMF", "ltp": "4.70", "volume": "211913"}, {"item": "BEXIMCO", "ltp": "18.60", "volume": "201725"}]
