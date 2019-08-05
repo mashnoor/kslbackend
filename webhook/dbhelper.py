@@ -4,6 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, relationship
+import settings
 
 Base = declarative_base()
 
@@ -12,33 +13,33 @@ class AccountRequest(Base):
     __tablename__ = 'accountrequests'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    name = Column(String(500))
 
-    password = Column(String)
-    mobile = Column(String)
-    email = Column(String)
-    details = Column(String)
+    password = Column(String(500))
+    mobile = Column(String(500))
+    email = Column(String(500))
+    details = Column(String(500))
 
 
 class FundRequisition(Base):
     __tablename__ = 'requisitions'
     id = Column(Integer, primary_key=True)
-    itsaccno = Column(String)
-    amount = Column(String)
-    reqdate = Column(String)
+    itsaccno = Column(String(500))
+    amount = Column(String(500))
+    reqdate = Column(String(500))
     isApproved = Column(Integer)
 
 
 class Account(Base):
     __tablename__ = 'accounts'
 
-    masterId = Column(String, primary_key=True)
+    masterId = Column(String(500), primary_key=True)
 
-    masterPassword = Column(String)
-    name = Column(String)
-    detail = Column(String)
-    token = Column(String)
-    email = Column(String)
+    masterPassword = Column(String(500))
+    name = Column(String(500))
+    detail = Column(String(500))
+    token = Column(String(500))
+    email = Column(String(500))
     itsaccounts = relationship('ITSAccount', backref="accounts")
     notifications = relationship('Notification', backref="accounts")
     clientids = relationship('Clientid', backref="accounts")
@@ -47,31 +48,32 @@ class Account(Base):
 class Notification(Base):
     __tablename__ = 'notifications'
     id = Column(Integer, primary_key=True)
-    title = Column(String)
-    message = Column(String)
+    title = Column(String(500))
+    message = Column(String(500))
     sendTimestamp = Column(DateTime)
 
-    accountId = Column(String, ForeignKey("accounts.masterId"))
+    accountId = Column(String(500), ForeignKey("accounts.masterId"))
 
 
 class ITSAccount(Base):
     __tablename__ = 'itsaccounts'
 
     id = Column(Integer, primary_key=True)
-    itsNo = Column(String)
-    password = Column(String)
-    accountId = Column(String, ForeignKey('accounts.masterId'))
+    itsNo = Column(String(500))
+    password = Column(String(500))
+    accountId = Column(String(500), ForeignKey('accounts.masterId'))
 
 
 class Clientid(Base):
     __tablename__ = 'clientids'
 
     id = Column(Integer, primary_key=True)
-    clientidno = Column(String)
-    accountId = Column(String, ForeignKey('accounts.masterId'))
+    clientidno = Column(String(500))
+    accountId = Column(String(500), ForeignKey('accounts.masterId'))
 
 
-engine = create_engine('sqlite:///kslbackend.db')
+#engine = create_engine('sqlite:///kslbackend.db')
+engine = create_engine('mysql+pymysql://' + settings.db_user +':' + settings.db_pass +'@localhost/ksl?host=localhost?port=3306')
 Base.metadata.create_all(engine)
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
