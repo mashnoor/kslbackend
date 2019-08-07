@@ -1,1 +1,1 @@
-[{"item": "IFIC", "ltp": "10.00", "volume": "348042"}, {"item": "SEAPEARL", "ltp": "31.00", "volume": "327398"}, {"item": "PREMIERBAN", "ltp": "11.30", "volume": "268129"}, {"item": "1JANATAMF", "ltp": "4.70", "volume": "211913"}, {"item": "BEXIMCO", "ltp": "18.60", "volume": "201725"}]
+[{"item": "BRACBANK", "ltp": "62.00", "volume": "805760"}, {"item": "COPPERTECH", "ltp": "37.80", "volume": "630488"}, {"item": "LANKABAFIN", "ltp": "18.40", "volume": "231078"}, {"item": "BEXIMCO", "ltp": "18.90", "volume": "229230"}, {"item": "NBL", "ltp": "8.40", "volume": "208058"}]

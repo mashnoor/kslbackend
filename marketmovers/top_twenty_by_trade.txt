@@ -1,1 +1,1 @@
-[{"item": "SEAPEARL", "ltp": "31.00", "trade": "370"}, {"item": "MONNOCERA", "ltp": "196.60", "trade": "352"}, {"item": "LEGACYFOOT", "ltp": "126.00", "trade": "263"}, {"item": "BSC", "ltp": "58.40", "trade": "226"}, {"item": "BATBC", "ltp": "1244.00", "trade": "207"}]
+[{"item": "COPPERTECH", "ltp": "37.80", "trade": "1159"}, {"item": "MONNOCERA", "ltp": "206.50", "trade": "418"}, {"item": "KPCL", "ltp": "56.50", "trade": "341"}, {"item": "LANKABAFIN", "ltp": "18.40", "trade": "238"}, {"item": "BATBC", "ltp": "1220.20", "trade": "221"}]

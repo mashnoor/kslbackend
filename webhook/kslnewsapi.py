@@ -1,7 +1,6 @@
 from flask import Blueprint, redirect
 from flask import request, render_template, redirect, url_for
 import dbhelper, json
-from pathlib import Path
 import flask_login
 import datetime
 
