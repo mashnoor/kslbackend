@@ -1,1 +1,0 @@
-[{"item": "BRACBANK", "ltp": "62.00", "volume": "805760"}, {"item": "COPPERTECH", "ltp": "37.80", "volume": "630488"}, {"item": "LANKABAFIN", "ltp": "18.40", "volume": "231078"}, {"item": "BEXIMCO", "ltp": "18.90", "volume": "229230"}, {"item": "NBL", "ltp": "8.40", "volume": "208058"}]

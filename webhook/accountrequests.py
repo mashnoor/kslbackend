@@ -10,7 +10,8 @@ account_request_api = Blueprint('account_request_api', __name__)
 @flask_login.login_required
 def accountrequests():
     # print dbhelper.getAccounts()
-    return render_template("accountrequests.html", accountrequests=dbhelper.getAccountRequests())
+    manager = dbhelper.DBManager()
+    return render_template("accountrequests.html", accountrequests=manager.getAccountRequests())
 
 
 @account_request_api.route("/requestaccount", methods=["POST"])
@@ -21,14 +22,16 @@ def requestaccount():
     acc.password = ""
     acc.name = request.form.get("accname")
     acc.details = request.form.get("details")
-    dbhelper.save(acc)
+    manager = dbhelper.DBManager()
+    manager.save(acc)
     return "Request for account creation in successful"
 
 
 @account_request_api.route("/accounts")
 @flask_login.login_required
 def accounts():
-    return render_template("accounts.html", accounts=dbhelper.getAccounts())
+    manager = dbhelper.DBManager()
+    return render_template("accounts.html", accounts=manager.getAccounts())
 
 
 @account_request_api.route("/addaccount", methods=["POST"])
@@ -39,21 +42,24 @@ def addaccount():
     acc.masterId = request.form.get("masterid")
     acc.email = request.form.get("email")
     acc.masterPassword = request.form.get("masterpassword")
-    dbhelper.save(acc)
+    manager = dbhelper.DBManager()
+    manager.save(acc)
     return redirect(url_for('account_request_api.accounts'))
 
 
 @account_request_api.route("/<masterid>/itsaccounts/")
 @flask_login.login_required
 def itsaccounts(masterid):
-    return render_template("itsaccounts.html", masterid=masterid, itsaccounts=dbhelper.getItsAccounts(masterid))
+    manager = dbhelper.DBManager()
+    return render_template("itsaccounts.html", masterid=masterid, itsaccounts=manager.getItsAccounts(masterid))
 
 
 @account_request_api.route("/itsaccounts", methods=["POST"])
 def getItsAccounts():
+    manager = dbhelper.DBManager()
     masterid = request.form.get('masterid')
     masterpass = request.form.get('masterpass')
-    itsaccounts = dbhelper.getItsAccountsMobile(masterid, masterpass)
+    itsaccounts = manager.getItsAccountsMobile(masterid, masterpass)
     allitsaccounts = []
     for itsaccount in itsaccounts:
         data = {
@@ -66,10 +72,12 @@ def getItsAccounts():
 
 @account_request_api.route("/<masterid>/additsaccount", methods=["POST"])
 def additsaccount(masterid):
+
     itsacc = dbhelper.ITSAccount()
     itsacc.itsNo = request.form.get("itsaccountno")
     itsacc.password = request.form.get("itspassword")
-    dbhelper.addItsAccoount(masterid, itsacc)
+    manager = dbhelper.DBManager()
+    manager.addItsAccoount(masterid, itsacc)
     return itsaccounts(masterid)
 
 
@@ -81,7 +89,8 @@ def additsaccountmobile():
     itsAccPass = request.form.get('itsaccpass')
     itsacc.itsNo = itsAccNo
     itsacc.password = itsAccPass
-    dbhelper.addItsAccoount(masterId, itsacc)
+    manager = dbhelper.DBManager()
+    manager.addItsAccoount(masterId, itsacc)
     return "success"
 
 
@@ -89,7 +98,8 @@ def additsaccountmobile():
 def deleteItsAccount():
     masterid = request.form.get('masterid')
     itsid = request.form.get('itsid')
-    dbhelper.deleteItsId(masterid, itsid)
+    manager = dbhelper.DBManager()
+    manager.deleteItsId(masterid, itsid)
 
     return "success"
 
@@ -97,15 +107,16 @@ def deleteItsAccount():
 @account_request_api.route("/<masterid>/clientids/")
 @flask_login.login_required
 def clientids(masterid):
-    return render_template("clientids.html", masterid=masterid, clientids=dbhelper.getClientIds(masterid))
+    manager = dbhelper.DBManager()
+    return render_template("clientids.html", masterid=masterid, clientids=manager.getClientIds(masterid))
 
 
 @account_request_api.route("/<masterid>/addclientid", methods=["POST"])
 def addclientid(masterid):
     client = dbhelper.Clientid()
     client.clientidno = request.form.get("clientid")
-
-    dbhelper.addClientId(masterid, client)
+    manager = dbhelper.DBManager()
+    manager.addClientId(masterid, client)
     return clientids(masterid)
 
 
@@ -113,7 +124,8 @@ def addclientid(masterid):
 def getClientIDsMobile():
     masterid = request.form.get('masterid')
     masterpass = request.form.get('masterpass')
-    clientIds = dbhelper.getClientIdsMobile(masterid, masterpass)
+    manager = dbhelper.DBManager()
+    clientIds = manager.getClientIdsMobile(masterid, masterpass)
     ids = []
     for id in clientIds:
         ids.append(id.clientidno)
@@ -126,4 +138,5 @@ def updateItsAccount():
     masterid = request.form.get('masterid')
     itsid = request.form.get('itsid')
     itspass = request.form.get('newitspass')
-    return dbhelper.updateItsId(masterid, itsid, itspass)
+    manager = dbhelper.DBManager()
+    return manager.updateItsId(masterid, itsid, itspass)

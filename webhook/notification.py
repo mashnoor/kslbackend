@@ -11,13 +11,15 @@ notification_api = Blueprint('notification_api', __name__)
 @notification_api.route("/individualnotification")
 @flask_login.login_required
 def individualnotification():
-    return render_template("individualnotification.html", accounts=dbhelper.getMasterAccounts())
+    manager = dbhelper.DBManager()
+    return render_template("individualnotification.html", accounts=manager.getMasterAccounts())
 
 
 @notification_api.route("/groupnotification")
 @flask_login.login_required
 def groupnotification():
-    return render_template("groupnotification.html", accounts=dbhelper.getMasterAccounts())
+    manager = dbhelper.DBManager()
+    return render_template("groupnotification.html", accounts=manager.getMasterAccounts())
 
 
 @notification_api.route("/addnotification", methods=["POST"])
@@ -28,7 +30,8 @@ def addnotification():
     newNotification = dbhelper.Notification()
     newNotification.message = message
     newNotification.sendTimestamp = datetime.datetime.now()
-    dbhelper.addNotification(masterid, newNotification)
+    manager = dbhelper.DBManager()
+    manager.addNotification(masterid, newNotification)
 
     return masterid + " - " + message
 
@@ -37,7 +40,8 @@ def addnotification():
 def settoken():
     token = request.form.get('token')
     masterId = request.form.get('masterid')
-    dbhelper.setToken(masterId, token)
+    manager = dbhelper.DBManager()
+    manager.setToken(masterId, token)
     return "success"
 
 
@@ -48,7 +52,8 @@ def sendsinglenotification():
         api_key="AAAAYv7rBNM:APA91bEwGTAwNGMqqFnh_3YSrcbCFvcwXvxlJhdEumZQQ6RU7_PnBlbBZILJwWKEyXLOaKCgLUDXwMiPk8lx1ONWyzrcR1KI5fxLysyAgrgWsLPhPrFjsLYsEiV-rsD39OcMcwd_omvU_zIFI-ynM0j0_RKj0OgRqQ")
 
     masterid = request.form.get("masterid")
-    token = dbhelper.getToken(masterid)
+    manager = dbhelper.DBManager()
+    token = manager.getToken(masterid)
 
     message_title = request.form.get("title")
     message_body = request.form.get("message")
@@ -57,7 +62,7 @@ def sendsinglenotification():
     newNotif.title = message_title
     newNotif.message = message_body
     newNotif.sendTimestamp = datetime.datetime.now()
-    dbhelper.addNotification(masterid, newNotif)
+    manager.addNotification(masterid, newNotif)
     result = push_service.notify_single_device(registration_id=token, message_title=message_title,
                                                message_body=message_body)
 
@@ -72,9 +77,10 @@ def sendgroupnotification():
         api_key="AAAAYv7rBNM:APA91bEwGTAwNGMqqFnh_3YSrcbCFvcwXvxlJhdEumZQQ6RU7_PnBlbBZILJwWKEyXLOaKCgLUDXwMiPk8lx1ONWyzrcR1KI5fxLysyAgrgWsLPhPrFjsLYsEiV-rsD39OcMcwd_omvU_zIFI-ynM0j0_RKj0OgRqQ")
 
     masterids = request.form.getlist('masterid')
+    manager = dbhelper.DBManager()
     tokens = []
     for masterid in masterids:
-        tokens.append(str(dbhelper.getToken(masterid)))
+        tokens.append(str(manager.getToken(masterid)))
 
     message_title = request.form.get("title")
     message_body = request.form.get("message")
@@ -83,7 +89,7 @@ def sendgroupnotification():
     newNotif.title = message_title
     newNotif.message = message_body
     newNotif.sendTimestamp = datetime.datetime.now()
-    dbhelper.addGroupNotification(masterids, newNotif)
+    manager.addGroupNotification(masterids, newNotif)
 
     result = push_service.notify_multiple_devices(registration_ids=tokens, message_title=message_title,
                                                   message_body=message_body)
@@ -94,7 +100,8 @@ def sendgroupnotification():
 @notification_api.route("/getnotifications", methods=['POST'])
 def getnotifications():
     masterid = request.form.get('masterid')
-    notifications = dbhelper.getNotifications(masterid)
+    manager = dbhelper.DBManager()
+    notifications = manager.getNotifications(masterid)
     notif = []
     for notification in notifications:
         curr_notif = {

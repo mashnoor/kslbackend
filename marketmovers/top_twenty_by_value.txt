@@ -1,1 +1,0 @@
-[{"item": "BRACBANK", "ltp": "62.00", "value": "49958250.00"}, {"item": "COPPERTECH", "ltp": "37.80", "value": "25137307.10"}, {"item": "MONNOCERA", "ltp": "206.50", "value": "10483226.20"}, {"item": "DOREENPWR", "ltp": "80.40", "value": "6392809.60"}, {"item": "KPCL", "ltp": "56.50", "value": "5877073.20"}]

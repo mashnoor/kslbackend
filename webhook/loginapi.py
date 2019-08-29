@@ -9,8 +9,9 @@ login_api = Blueprint('login_api', __name__)
 def master_login():
     masterid = request.form.get('masterid')
     masterpass = request.form.get('masterpass')
-    if dbhelper.isValiedMasterId(masterid, masterpass):
-        acc = dbhelper.getMasterAccount(masterid, masterpass)
+    manager = dbhelper.DBManager()
+    if manager.isValiedMasterId(masterid, masterpass):
+        acc = manager.getMasterAccount(masterid, masterpass)
         retAcc = {}
         retAcc['masterid'] = acc.masterId
         retAcc['masterpass'] = acc.masterPassword
@@ -25,5 +26,6 @@ def master_login():
 def settoken():
     token = request.form.get('token')
     masterId = request.form.get('masterid')
-    dbhelper.setToken(masterId, token)
+    manager = dbhelper.DBManager()
+    manager.setToken(masterId, token)
     return "success"

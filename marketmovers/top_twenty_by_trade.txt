@@ -1,1 +1,0 @@
-[{"item": "COPPERTECH", "ltp": "37.80", "trade": "1159"}, {"item": "MONNOCERA", "ltp": "206.50", "trade": "418"}, {"item": "KPCL", "ltp": "56.50", "trade": "341"}, {"item": "LANKABAFIN", "ltp": "18.40", "trade": "238"}, {"item": "BATBC", "ltp": "1220.20", "trade": "221"}]

@@ -9,11 +9,13 @@ requisitions_api = Blueprint('requisitions_api', __name__)
 @requisitions_api.route("/requisitions")
 @flask_login.login_required
 def requisitions():
-    return render_template("fundrequisitions.html", requisitions=dbhelper.getRequisitions())
+    manager = dbhelper.DBManager()
+    return render_template("fundrequisitions.html", requisitions=manager.getRequisitions())
 
 
 @requisitions_api.route("/requestrequisition", methods=["POST"])
 def requestrequisition():
+
     url = "http://api.kslbd.net:88/client/requisition/insert/sandbox/sandbox/sandbox/"
     new_requisition = {}
     new_requisition['app_id'] = 5436

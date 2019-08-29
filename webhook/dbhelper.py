@@ -72,157 +72,160 @@ class Clientid(Base):
     accountId = Column(String(500), ForeignKey('accounts.masterId'))
 
 
-#engine = create_engine('sqlite:///kslbackend.db')
-engine = create_engine('mysql+pymysql://' + settings.db_user +':' + settings.db_pass +'@localhost/ksl?host=localhost?port=3306')
-Base.metadata.create_all(engine)
-Base.metadata.bind = engine
-DBSession = sessionmaker(bind=engine)
+# engine = create_engine('sqlite:///kslbackend.db')
 
+class DBManager:
 
-def getMasterAccounts():
-    session = DBSession()
-    return session.query(Account).all()
+    def __init__(self):
 
+        engine = create_engine(
+            'mysql+pymysql://' + settings.db_user + ':' + settings.db_pass + '@localhost/ksl?host=localhost?port=3306')
+        Base.metadata.create_all(engine)
+        Base.metadata.bind = engine
+        self.DBSession = sessionmaker(bind=engine)
 
-def getRequisitions():
-    session = DBSession()
-    return session.query(FundRequisition).all()
+    def getMasterAccounts(self):
+        session = self.DBSession()
+        result = session.query(Account).all()
+        session.close()
+        return result
 
+    def getRequisitions(self):
+        session = self.DBSession()
+        result = session.query(FundRequisition).all()
+        session.close()
+        return result
 
-def getAccountRequests():
-    session = DBSession()
-    return session.query(AccountRequest).all()
+    def getAccountRequests(self):
+        session = self.DBSession()
+        result = session.query(AccountRequest).all()
+        session.close()
+        return result
 
+    def getAccounts(self):
+        session = self.DBSession()
+        result = session.query(Account).all()
+        return result
 
-def getAccounts():
-    session = DBSession()
-    return session.query(Account).all()
+    def getItsAccounts(self, masterId):
+        session = self.DBSession()
+        result = session.query(Account).filter_by(masterId=masterId).first().itsaccounts
+        session.close()
+        return result
 
+    def getItsAccountsMobile(self, masterId, masterPass):
+        session = self.DBSession()
+        result = session.query(Account).filter_by(masterId=masterId, masterPassword=masterPass).first().itsaccounts
+        session.close()
+        return result
 
-def getItsAccounts(masterId):
-    session = DBSession()
-    return session.query(Account).filter_by(masterId=masterId).first().itsaccounts
+    def addItsAccoount(self, masterid, itsaccount):
+        session = self.DBSession()
+        account = session.query(Account).filter_by(masterId=masterid).first()
+        account.itsaccounts.append(itsaccount)
+        session.commit()
+        session.close()
 
+    def setToken(self, masterid, token):
+        session = self.DBSession()
+        account = session.query(Account).filter_by(masterId=masterid).first()
+        account.token = token
+        session.commit()
+        session.close()
 
-def getItsAccountsMobile(masterId, masterPass):
-    session = DBSession()
-    return session.query(Account).filter_by(masterId=masterId, masterPassword=masterPass).first().itsaccounts
+    def getToken(self, masterid):
+        session = self.DBSession()
+        account = session.query(Account).filter_by(masterId=masterid).first()
+        result = account.token
+        session.close()
+        return result
 
-
-def addItsAccoount(masterid, itsaccount):
-    session = DBSession()
-    account = session.query(Account).filter_by(masterId=masterid).first()
-    account.itsaccounts.append(itsaccount)
-    session.commit()
-
-
-def setToken(masterid, token):
-    session = DBSession()
-    account = session.query(Account).filter_by(masterId=masterid).first()
-    account.token = token
-    session.commit()
-
-
-def getToken(masterid):
-    session = DBSession()
-    account = session.query(Account).filter_by(masterId=masterid).first()
-    return account.token
-
-
-def addNotification(masterid, notification):
-    session = DBSession()
-    account = session.query(Account).filter_by(masterId=masterid).first()
-    account.notifications.append(notification)
-    session.commit()
-
-
-def addGroupNotification(masterids, notification):
-    session = DBSession()
-    for masterid in masterids:
+    def addNotification(self, masterid, notification):
+        session = self.DBSession()
         account = session.query(Account).filter_by(masterId=masterid).first()
         account.notifications.append(notification)
-    session.commit()
+        session.commit()
+        session.close()
+
+    def addGroupNotification(self, masterids, notification):
+        session = self.DBSession()
+        for masterid in masterids:
+            account = session.query(Account).filter_by(masterId=masterid).first()
+            account.notifications.append(notification)
+        session.commit()
+        session.close()
+
+    def save(self, data):
+        session = self.DBSession()
+        session.add(data)
+        session.commit()
+        session.close()
+
+    def isValiedMasterId(self, masterid, masterpassword):
+        session = self.DBSession()
+        result = session.query(Account).filter_by(masterId=masterid, masterPassword=masterpassword).scalar() is not None
+        session.close()
+        return result
+
+    def getMasterAccount(self, masterid, masterpassword):
+        session = self.DBSession()
+        result = session.query(Account).filter_by(masterId=masterid, masterPassword=masterpassword).first()
+        session.close()
+        return result
+
+    def getNotifications(self, masterid):
+        session = self.DBSession()
+        account = session.query(Account).filter_by(masterId=masterid).first()
+        result = account.notifications
+        session.close()
+        return result
+
+    def getClientIdsMobile(self, masterId, masterPass):
+        session = self.DBSession()
+        result = session.query(Account).filter_by(masterId=masterId, masterPassword=masterPass).first().clientids
+        session.close()
+        return result
+
+    def getClientIds(self, masterId):
+        session = self.DBSession()
+        result =  session.query(Account).filter_by(masterId=masterId).first().clientids
+        session.close()
+        return result
+
+    def addClientId(self, masterid, clientid):
+        session = self.DBSession()
+        account = session.query(Account).filter_by(masterId=masterid).first()
+        account.clientids.append(clientid)
+        session.commit()
+        print(clientid.clientidno)
+        session.close()
+
+    def deleteItsId(self, masterid, itsid):
+        session = self.DBSession()
+        for itsacc in session.query(Account).filter_by(masterId=masterid).first().itsaccounts:
+            if itsacc.itsNo == itsid:
+                # account = session.query(Account).filter_by(masterId=masterid).first()
+                session.delete(itsacc)
+                session.commit()
+                print("Deleted")
+        session.close()
+
+    def updateItsId(self, masterid, itsid, itsNewPass):
+        session = self.DBSession()
+        for itsacc in session.query(Account).filter_by(masterId=masterid).first().itsaccounts:
+            if itsacc.itsNo == itsid:
+                # account = session.query(Account).filter_by(masterId=masterid).first()
+                itsacc.password = itsNewPass
+                session.commit()
+                session.close()
+                return 'success'
+        session.close()
+        return 'failed'
+
+    def getMasterPassword(self, email, masterId):
+        session = self.DBSession()
+        result = session.query(Account).filter_by(email=email, masterId=masterId).first().masterPassword
+        session.close()
+        return result
 
 
-def save(data):
-    session = DBSession()
-    session.add(data)
-    session.commit()
-
-
-def isValiedMasterId(masterid, masterpassword):
-    session = DBSession()
-    return session.query(Account).filter_by(masterId=masterid, masterPassword=masterpassword).scalar() is not None
-
-
-def getMasterAccount(masterid, masterpassword):
-    session = DBSession()
-    return session.query(Account).filter_by(masterId=masterid, masterPassword=masterpassword).first()
-
-
-def getNotifications(masterid):
-    session = DBSession()
-    account = session.query(Account).filter_by(masterId=masterid).first()
-    return account.notifications
-
-
-def getClientIdsMobile(masterId, masterPass):
-    session = DBSession()
-    return session.query(Account).filter_by(masterId=masterId, masterPassword=masterPass).first().clientids
-
-
-def getClientIds(masterId):
-    session = DBSession()
-    return session.query(Account).filter_by(masterId=masterId).first().clientids
-
-
-def addClientId(masterid, clientid):
-    session = DBSession()
-    account = session.query(Account).filter_by(masterId=masterid).first()
-    account.clientids.append(clientid)
-    session.commit()
-    print(clientid.clientidno)
-
-
-def deleteItsId(masterid, itsid):
-    session = DBSession()
-    for itsacc in session.query(Account).filter_by(masterId=masterid).first().itsaccounts:
-        if itsacc.itsNo == itsid:
-            # account = session.query(Account).filter_by(masterId=masterid).first()
-            session.delete(itsacc)
-            session.commit()
-            print("Deleted")
-
-
-def updateItsId(masterid, itsid, itsNewPass):
-    session = DBSession()
-    for itsacc in session.query(Account).filter_by(masterId=masterid).first().itsaccounts:
-        if itsacc.itsNo == itsid:
-            # account = session.query(Account).filter_by(masterId=masterid).first()
-            itsacc.password = itsNewPass
-            session.commit()
-            return 'success'
-    return 'failed'
-
-
-def getMasterPassword(email, masterId):
-    session = DBSession()
-    return session.query(Account).filter_by(email=email, masterId=masterId).first().masterPassword
-
-
-'''
-itsacc = ITSAccount()
-itsacc.password = "1111"
-itsacc.itsNo = "13423"
-
-
-acc = Account()
-acc.masterId = "8888"
-acc.detail = "This is a account"
-acc.name = "Name"
-acc.masterPassword = "00000"
-acc.itsaccounts.append(itsacc)
-
-saveAccount(acc)
-
-'''
