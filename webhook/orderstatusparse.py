@@ -17,6 +17,8 @@ def getorderstatus():
 
     print(statushtml)
 
+    if statushtml == "NOTOK":
+        return "NOTOK"
     soup = BeautifulSoup(statushtml, 'html.parser')
 
     table_attrs = {"id": "searchtable", "style": "width:100% ;valign=top", "class": "tableheading"}
@@ -28,12 +30,16 @@ def getorderstatus():
 
     table = soup.find("table", attrs=table_attrs)
 
-    for tr in table.find_all("tr"):
-        curr_order = []
-        for td in tr.find_all("td"):
-            curr_order.append(str(td.text).strip())
-        orders.append(dict(zip(keys, curr_order)))
+    try:
 
-    del orders[0]
-    orders.reverse()
-    return json.dumps(orders)
+        for tr in table.find_all("tr"):
+            curr_order = []
+            for td in tr.find_all("td"):
+                curr_order.append(str(td.text).strip())
+            orders.append(dict(zip(keys, curr_order)))
+
+        del orders[0]
+        orders.reverse()
+        return json.dumps(orders)
+    except:
+        return "ERROR"

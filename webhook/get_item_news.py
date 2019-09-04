@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
-import requests, json
+import requests
+import json
 from flask import Blueprint
 
 get_item_news_api = Blueprint('get_item_news_api', __name__)

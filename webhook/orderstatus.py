@@ -47,7 +47,7 @@ def status(loginid, password, startdate, enddate):
         # print r.text
         r = s.post(verifyPassword, data={'pagePassword': password})
         if (r.text == "NOTOK"):
-            return "Login Failed"
+            return "NOTOK"
         r = s.post(statusUrl, data=d)
 
         return r.text
