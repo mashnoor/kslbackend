@@ -59,7 +59,7 @@ def getMarketMoversByTrade():
         curr_item = {}
         curr_item['item'] = inner_divs[0].get_text().strip()
         curr_item['ltp'] = inner_divs[1].get_text().strip()
-        curr_item['trade'] = inner_divs[4].get_text().strip()
+        curr_item['totaltrade'] = inner_divs[4].get_text().strip()
         top_twenty_by_trade.append(curr_item)
 
     return json.dumps(top_twenty_by_trade)
