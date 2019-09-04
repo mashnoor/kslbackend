@@ -14,9 +14,6 @@ def getFinancialLedgers():
     from_date = request.form.get('from_date')
     to_date = request.form.get('to_date')
     vals = {'from_date': from_date, 'to_date': to_date, 'client_id': client_id}
-    print(vals)
-    print(url + json.dumps(vals))
     r = requests.get(url + json.dumps(vals))
-    print(r.content)
     res_json = r.json()
     return json.dumps(res_json["_ret_data_table"][0]["detail"][::-1]) #Showig latest ledgers first
