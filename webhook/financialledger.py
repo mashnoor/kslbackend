@@ -19,4 +19,4 @@ def getFinancialLedgers():
     r = requests.get(url + json.dumps(vals))
     print(r.content)
     res_json = r.json()
-    return json.dumps(res_json["_ret_data_table"][0]["detail"])
+    return json.dumps(res_json["_ret_data_table"][0]["detail"][::-1]) #Showig latest ledgers first
