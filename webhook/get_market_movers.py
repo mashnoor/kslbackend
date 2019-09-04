@@ -13,7 +13,7 @@ def getMarketMoversByValue():
 
     soup = BeautifulSoup(r.content, 'html.parser')
 
-    div_attr = {"class": "mover_tap_content "}
+    div_attr = {"class": "mover_tap_content"}
     top_mover_by_value_div = soup.find("div", div_attr)
     top_twenty_by_value = []
     for div in top_mover_by_value_div.find_all('div', {'class': "immover_MIrow1"}):
