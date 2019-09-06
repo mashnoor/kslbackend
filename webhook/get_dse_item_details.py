@@ -4,9 +4,15 @@ from bs4 import BeautifulSoup
 
 from flask import Blueprint
 
-import json, requests
+import json
+import settings
 
-get_item_detail_api = Blueprint('get_item_details_api', __name__)
+if settings.use_fast_requests:
+    import faster_than_requests as req
+else:
+    import requests
+
+get_dse_item_detail_api = Blueprint('get_dse_item_details_api', __name__)
 
 
 def get_url(item_name):
@@ -14,13 +20,18 @@ def get_url(item_name):
     return base_url + item_name
 
 
-@get_item_detail_api.route("/getitemdetail/<item_name>")
+@get_dse_item_detail_api.route("/getitemdetail/dse/<item_name>")
 def getItemDetail(item_name):
     final_result = {}
+    url = get_url(item_name)
 
-    r = requests.get(get_url(item_name), verify=False)
+    if settings.use_fast_requests:
+        html = req.get2str(url)
+    else:
+        r = requests.get(url, verify=False)
+        html = r.text
 
-    soup = BeautifulSoup(str(r.text).encode('ascii', 'ignore').decode('ascii'), "html.parser")
+    soup = BeautifulSoup(str(html).encode('ascii', 'ignore').decode('ascii'), "html.parser")
 
     ################## GRAB COMPANY NAME #####################
     comp_table = soup.find("th", {"style": "text-align:center !important;"})

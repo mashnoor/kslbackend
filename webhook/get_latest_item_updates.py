@@ -1,16 +1,28 @@
 from bs4 import BeautifulSoup
-import requests
+
 import json
 from flask import Blueprint
+import time
+import settings
+
+if settings.use_fast_requests:
+    import faster_than_requests as req
+else:
+    import requests
 
 get_latest_item_updates_api = Blueprint('get_latest_item_updates_api', __name__)
 url = "https://www.cse.com.bd/market/current_price"
 
+
 @get_latest_item_updates_api.route('/getlatestitems')
 def getlatestitems():
-    r = requests.get(url, verify=False)
+    if settings.use_fast_requests:
+        html = req.get2str(url)
+    else:
+        r = requests.get(url, verify=False)
+        html = r.content
 
-    soup = BeautifulSoup(r.content, 'html.parser')
+    soup = BeautifulSoup(html, 'html.parser')
 
     all_items_table = soup.find("tbody")
     print(all_items_table)
@@ -22,7 +34,7 @@ def getlatestitems():
         curr_item['ltp'] = inner_data[2].get_text().strip()
         curr_item['volume'] = inner_data[9].get_text().strip()
 
-        #Change Percentage Calculation
+        # Change Percentage Calculation
         change_percentage = "--"
         try:
             ltp = float(inner_data[2].get_text().strip())
@@ -35,7 +47,5 @@ def getlatestitems():
 
         curr_item['changepercentage'] = change_percentage
         all_items.append(curr_item)
-
-    print(all_items)
 
     return json.dumps(all_items)

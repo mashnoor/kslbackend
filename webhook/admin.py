@@ -7,7 +7,8 @@ from portfoliostatement import portfoliostatement_api
 
 from orderstatusparse import getorderstatus_api
 from get_previous_day_end_data import previous_day_end_data_api
-from get_item_details import get_item_detail_api
+from get_dse_item_details import get_dse_item_detail_api
+from get_cse_item_details import get_cse_item_detail_api
 from financialledger import financial_ledger_api
 from market_depth import market_depth_api
 from trade import trade_api
@@ -23,6 +24,7 @@ from get_top_ten_gainers_losers import get_top_gainers_losers_api
 from get_cse_home_data import get_cse_home_data_api
 from get_dse_home_data import get_dse_home_data_api
 from get_latest_item_updates import get_latest_item_updates_api
+
 import settings
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -33,7 +35,8 @@ app.register_blueprint(notification_api)
 app.register_blueprint(portfoliostatement_api)
 app.register_blueprint(getorderstatus_api)
 app.register_blueprint(previous_day_end_data_api)
-app.register_blueprint(get_item_detail_api)
+app.register_blueprint(get_dse_item_detail_api)
+app.register_blueprint(get_cse_item_detail_api)
 app.register_blueprint(financial_ledger_api)
 app.register_blueprint(market_depth_api)
 app.register_blueprint(trade_api)
