@@ -262,6 +262,3 @@ def getItemDetail(item_name):
 
     json_converted = json.dumps(final_result)
     return json_converted
-
-
-print(getItemDetail("TUNGHAI"))
