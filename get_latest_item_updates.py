@@ -11,7 +11,6 @@ html = r.content
 soup = BeautifulSoup(html, 'html.parser')
 
 all_items_table = soup.find("tbody")
-print(all_items_table)
 all_items = []
 for item in all_items_table.find_all("tr"):
     inner_data = item.find_all('td')
