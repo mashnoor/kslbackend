@@ -24,3 +24,4 @@ marketmovers/by_value.txt
 marketmovers/by_volume.txt
 all_items_latest_update.txt
 webhook/settings.py
+webhook/.pytest_cache/

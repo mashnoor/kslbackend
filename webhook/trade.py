@@ -35,7 +35,7 @@ def buy_item():
         # print r.text
         r = s.post(verifyPassword, data={'pagePassword': password})
         if (r.text == "NOTOK"):
-            return "ITS Login Failed!"
+            return "Login Failed! Please update your ITS password"
         r = s.post(order1url, data=order1_data)
         soup = BeautifulSoup(r.text, 'html.parser')
         return soup.find_all('font')[0].text
