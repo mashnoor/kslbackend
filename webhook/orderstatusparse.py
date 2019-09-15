@@ -42,4 +42,4 @@ def getorderstatus():
         orders.reverse()
         return json.dumps(orders)
     except:
-        return "ERROR"
+        return "[]"
